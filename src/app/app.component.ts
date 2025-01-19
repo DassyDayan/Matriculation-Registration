@@ -18,7 +18,7 @@ import { DataService } from './service/data-service ';
     CommonModule,
     FormsModule,
     TitleComponent,
-    StudentAmountFormComponent
+    StudentAmountFormComponent,RouterOutlet
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'

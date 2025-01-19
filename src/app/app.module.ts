@@ -9,16 +9,16 @@ import { TitleComponent } from './components/title/title.component';
 import { StudentAmountFormComponent } from './components/student-amount-form/student-amount-form.component';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
-  declarations: [
-    AppComponent, 
-    ReactiveFormComponent,
-    StudentAmountFormComponent
+  declarations: [ AppComponent
   ],
   imports: [
     BrowserModule, ReactiveFormsModule, FormsModule,MatDialogModule ,
-    BrowserAnimationsModule   ,TitleComponent,CommonModule,HttpClientModule 
+    BrowserAnimationsModule   ,TitleComponent,CommonModule,HttpClientModule ,
+    RouterModule.forRoot([]),ReactiveFormComponent,
+    StudentAmountFormComponent
   ],
   providers: [    
     provideHttpClient(withInterceptorsFromDi()), 
