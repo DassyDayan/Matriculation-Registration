@@ -1,0 +1,39 @@
+<div class="dialog-header">
+  <button class="close-button" (click)="closeDialog()">X</button>
+</div>
+<div mat-dialog-content>
+  <h3 mat-dialog-title>אישור רישום לבגרות מעבדה {{registrationYear}}</h3>
+  <div>
+    <div>להלן הפרטים שהוזנו:</div>
+    <br />
+    <div>סך כל התלמידים הנבחנים:{{registrationDetails.totalExamineeStudents}}</div>
+    <div>מספר חדרי המעבדה:{{registrationDetails.labRoomsAmount}}</div>
+    <br />
+    <div>החומרים יגעו אליכם ל-{{registrationDetails.divisionArea}} </div>
+    <br />
+    <div>שימו לב, ניתן לעדכן את הנתונים עד לתאריך {{registrationDetails.finalDate | date: 'dd/MM/YYYY'}}</div>
+  </div>
+</div>
+<div mat-dialog-actions class="dialog-actions">
+  <button mat-button (click)="onEdit()">
+    <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path fill="none" 
+            stroke="currentColor" 
+            stroke-width="3" 
+            stroke-linecap="round" 
+            stroke-linejoin="round"
+            d="M20 6L9 17L4 12" />
+  </svg>
+    תיקון
+  </button>
+  <button mat-button color="primary" (click)="onConfirm()">
+    <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path fill="none" 
+            stroke="currentColor" 
+            stroke-width="3" 
+            stroke-linecap="round" 
+            stroke-linejoin="round"
+            d="M20 6L9 17L4 12" />
+  </svg>
+    אישור</button>
+</div>

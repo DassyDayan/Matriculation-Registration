@@ -1,0 +1,16 @@
+
+<h5>רישום לבגרות בר אילן</h5>
+
+<h6>בגרות מעבדה {{currentYear}}</h6>
+
+<div>הרשמה לקבלת חומרים לבחינת הבגרות-
+  {{currentYear}}<br />
+  בחינת הבגרות בתאריך {{registerLastDate | date:'dd/MM/yyyy'}} (תאריך לא סופי).
+</div>
+
+<div>
+    <h6>⚠️ לתשומת ליבכם:</h6>
+    <ul>
+      <li *ngFor="let attention of Attention">{{ attention }}</li>
+    </ul>
+</div>
