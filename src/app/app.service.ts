@@ -1,14 +1,24 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { catchError, Observable, throwError } from 'rxjs';
+import { environment } from './environment.prod';
+
+// export interface RegistrationData {
+//   title: string;
+//   testDate: Date;
+//   registerLastDate: Date;
+//   phone: string;
+//   attentionArray: string[];
+//   areas: string[];
+// }
 
 export interface RegistrationData {
-  title: string;
-  testDate: Date;
-  registerLastDate: Date;
+  id?: string;
+  testDate?: Date;
+  registerLastDate?: Date;
   phone: string;
-  attentionArray: string[];
   areas: string[];
+  attentionMessages: string[];
 }
 
 @Injectable({
@@ -16,14 +26,26 @@ export interface RegistrationData {
 })
 
 export class AppService {
-  private apiUrl = process.env["apiUrl"]|| ''; 
 
-  constructor(private http: HttpClient) {    
-    console.log("apiUrl",this.apiUrl);
-  }
+  private apiUrl = environment.apiUrl;
+
+  private httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
+  };
+
+  constructor(private http: HttpClient) { }
 
   getRegistrationData(): Observable<RegistrationData> {
-    return this.http.get<RegistrationData>(`${this.apiUrl}/registration-data`);
+
+    return this.http.get<RegistrationData>(`${this.apiUrl}/Registration/GetRegistrationDetails`,
+      this.httpOptions).pipe(
+        catchError(error => {
+          console.error('Error occurred:', error);
+          return throwError(() => new Error('Something went wrong! Please try again later.'));
+        }));
+
   }
 
   getTestDate(): Observable<Date> {

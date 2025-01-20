@@ -1,13 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
-import {toJewishDate,} from "jewish-date";
+import { Component, Input, SimpleChanges } from '@angular/core';
+import { toJewishDate, } from "jewish-date";
 import { gematriya } from '@hebcal/core';
+import moment from 'moment';
 
-export interface IProps{
-  testDate:Date|undefined;
-  registerLastDate:Date|undefined;
-  phone:string|undefined;
-  Attention:string[];
+export interface IProps {
+  testDate: Date | undefined;
+  registerLastDate: Date | undefined;
+  phone: string | undefined;
+  Attention: string[];
 }
 
 @Component({
@@ -18,7 +19,7 @@ export interface IProps{
   styleUrls: ['./title.component.scss']
 })
 
-export class TitleComponent{
+export class TitleComponent {
 
   @Input() testDate: Date | undefined;
   @Input() registerLastDate: Date | undefined;
@@ -29,6 +30,20 @@ export class TitleComponent{
 
   constructor() {
     this.currentYear = gematriya(toJewishDate(new Date()).year);
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['Attention'] && changes['Attention'].currentValue) {
+      this.handleAttentionChange();
+    }
+  }
+
+  private handleAttentionChange() {
+    if (this.Attention && this.Attention.length > 0) {
+      const messagesOnly = this.Attention.map((item: any) => item.message);
+      this.Attention = messagesOnly;
+    }  
+    this.Attention[0]+=` ${moment(this.registerLastDate).format('DD/MM/YYYY')}`;    
   }
 
 }

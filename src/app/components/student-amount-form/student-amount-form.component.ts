@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, Input, SimpleChanges, ViewChild } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { PopupComponent } from "../popup/popup.component"
 import { MatDialog } from '@angular/material/dialog';
@@ -22,7 +22,7 @@ export interface IFormDetails {
 @Component({
   selector: 'app-student-amount-form',
   imports: [CommonModule, FormsModule],
-  standalone:true,
+  standalone: true,
   templateUrl: './student-amount-form.component.html',
   styleUrl: './student-amount-form.component.scss'
 })
@@ -61,7 +61,21 @@ export class StudentAmountFormComponent {
     this._laboratoriesAmount = value;
     this.examinersNames = new Array(value).fill(undefined);
   }
+
   constructor(private dialog: MatDialog) { }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['areas'] && changes['areas'].currentValue) {
+      this.handleAreasChange();
+    }
+  }
+
+  private handleAreasChange() {
+    if (this.areas && this.areas.length > 0) {
+      const messagesOnly = this.areas.map((item: any) => item.areaName);
+      this.areas = messagesOnly;
+    }
+  }
 
   onLabsChange(event: any) {
     const num = parseInt(event.target.value);
@@ -83,7 +97,6 @@ export class StudentAmountFormComponent {
       });
     }
   }
-
 
   openPopup(): void {
     const dialogRef = this.dialog.open(PopupComponent, {

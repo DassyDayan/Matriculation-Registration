@@ -1,16 +1,18 @@
 <main class="main">
   <div class="content">
 
-    <app-title [testDate]="testDate" 
-    [registerLastDate]="registerLastDate" 
-    [phone]="phone"
-      [Attention]="attentionArray">
+    <app-title 
+        [testDate]="data.testDate" 
+        [registerLastDate]="data.registerLastDate" 
+        [phone]="data.phone" 
+        [Attention]="data.attentionMessages"
+    >
     </app-title>
-    <app-student-amount-form [areas]="areas"></app-student-amount-form>
+    <app-student-amount-form [areas]="data.areas"></app-student-amount-form>
 
   </div>
 </main>
 <router-outlet />
 
 <!-- הרישום טרם נפתח -->
- <!-- זמן הרישום עבר -->
+<!-- זמן הרישום עבר -->
