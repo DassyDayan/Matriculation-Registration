@@ -5,20 +5,7 @@ import { Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {toJewishDate,} from "jewish-date";
 import { gematriya } from '@hebcal/core';
-
-export interface IRegistrationDetails {
-  year: Date;
-  totalExamineeStudents: number|undefined;
-  labRoomsAmount: number|undefined;
-  divisionArea: string|undefined;
-  finalDate: Date;
-}
-
-interface Iprops {
-  totalExamineeStudents: number |undefined;
-  labRoomsAmount: number |undefined;
-  divisionArea: string | undefined;
-}
+import { Iprops } from './interfaces';
 
 @Component({
   selector: 'app-popup',
@@ -29,6 +16,7 @@ interface Iprops {
 })
 
 export class PopupComponent {
+
   registrationDetails: {
     year: Date; 
     totalExamineeStudents: number | undefined; 
@@ -69,6 +57,7 @@ export class PopupComponent {
   closeDialog() {
     this.popupService.closePopup();
   }
+
   onEdit(): void {
     this.closeDialog();
   }

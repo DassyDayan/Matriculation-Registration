@@ -4,24 +4,16 @@
         <div>
             <label>מספר התלמידים הנבחנים </label>
             <label>בוקר
-                <input type="number" 
-                       [(ngModel)]="formData.examineesAmount.morning" 
-                       name="morning"
-                       required
-                       min="1"
-                       #morning="ngModel" />
+                <input type="number" [(ngModel)]="formData.MorningExaminees" name="morning" required min="1"
+                    #morning="ngModel" />
                 <div *ngIf="morning.invalid && (morning.dirty || morning.touched)" class="error-message">
                     <div *ngIf="morning.errors?.['required']">נדרש למלא מספר תלמידים</div>
                     <div *ngIf="morning.errors?.['min']">מספר התלמידים חייב להיות גדול מ-0</div>
                 </div>
             </label>
             <label>צהריים
-                <input type="number" 
-                       [(ngModel)]="formData.examineesAmount.noon" 
-                       name="evening"
-                       required
-                       min="0"
-                       #evening="ngModel" />
+                <input type="number" [(ngModel)]="formData.NoonExaminees" name="evening" required min="0"
+                    #evening="ngModel" />
                 <div *ngIf="evening.invalid && (evening.dirty || evening.touched)" class="error-message">
                     <div *ngIf="evening.errors?.['required']">נדרש למלא מספר תלמידים</div>
                     <div *ngIf="evening.errors?.['min']">מספר התלמידים לא יכול להיות שלילי</div>
@@ -33,13 +25,8 @@
     <div>
         <div>הזינו את פרטי הרכז</div>
         <label>שם הרכז
-            <input type="text" 
-                   [(ngModel)]="formData.coordinateDetails.name" 
-                   name="coordName"
-                   required
-                   minlength="2"
-                   pattern="^[\u0590-\u05FF\s]+$"
-                   #coordName="ngModel" />
+            <input type="text" [(ngModel)]="formData.Coordinator!.Name" name="coordName" required minlength="2"
+                pattern="^[\u0590-\u05FF\s]+$" #coordName="ngModel" />
             <div *ngIf="coordName.invalid && (coordName.dirty || coordName.touched)" class="error-message">
                 <div *ngIf="coordName.errors?.['required']">שם הרכז הוא שדה חובה</div>
                 <div *ngIf="coordName.errors?.['minlength']">שם חייב להכיל לפחות 2 תווים</div>
@@ -47,24 +34,16 @@
             </div>
         </label>
         <label>טלפון רכז
-            <input type="text" 
-                   [(ngModel)]="formData.coordinateDetails.phone" 
-                   name="coordPhone"
-                   required
-                   pattern="^0[0-9]{8,9}$"
-                   #coordPhone="ngModel" />
+            <input type="text" [(ngModel)]="formData.Coordinator!.Phone" name="coordPhone" required
+                pattern="^0[0-9]{8,9}$" #coordPhone="ngModel" />
             <div *ngIf="coordPhone.invalid && (coordPhone.dirty || coordPhone.touched)" class="error-message">
                 <div *ngIf="coordPhone.errors?.['required']">מספר טלפון הוא שדה חובה</div>
                 <div *ngIf="coordPhone.errors?.['pattern']">יש להזין מספר טלפון תקין (מתחיל ב-0, 9-10 ספרות)</div>
             </div>
         </label>
         <label>מייל רכז
-            <input type="email" 
-                   [(ngModel)]="formData.coordinateDetails.mail" 
-                   name="coordMail"
-                   required
-                   email
-                   #coordMail="ngModel" />
+            <input type="email" [(ngModel)]="formData.Coordinator!.Email" name="coordMail" required email
+                #coordMail="ngModel" />
             <div *ngIf="coordMail.invalid && (coordMail.dirty || coordMail.touched)" class="error-message">
                 <div *ngIf="coordMail.errors?.['required']">כתובת מייל היא שדה חובה</div>
                 <div *ngIf="coordMail.errors?.['email']">יש להזין כתובת מייל תקינה</div>
@@ -74,13 +53,9 @@
 
     <div>
         <span>היכן תרצו לקבל את החומרים?</span>
-        <select class="areas" 
-                [(ngModel)]="formData.materialReceivingArea" 
-                name="area"
-                required
-                #area="ngModel">
+        <select class="areas" [(ngModel)]="formData.Area" name="area" required #area="ngModel">
             <option value="">בחר אזור</option>
-            <option *ngFor="let area of areas" [value]="area">{{area}}</option>
+            <option *ngFor="let area of areas" [ngValue]="area">{{area.areaName}}</option>
         </select>
         <div *ngIf="area.invalid && (area.dirty || area.touched)" class="error-message">
             <div *ngIf="area.errors?.['required']">יש לבחור אזור</div>
@@ -89,25 +64,16 @@
 
     <div>
         <span>מספר חדרי המעבדה בבית ספרך</span>
-        <input type="number" 
-               name="labs" 
-               min="1"
-               required
-               [(ngModel)]="formData.labsAmount" 
-               (change)="onLabsChange($event)"
-               #labs="ngModel" />
+        <input type="number" name="labs" min="1" required [(ngModel)]="formData.LabsCnt"
+            (change)="onLabsChange($event)" #labs="ngModel" />
         <div *ngIf="labs.invalid && (labs.dirty || labs.touched)" class="error-message">
             <div *ngIf="labs.errors?.['required']">מספר חדרי מעבדה הוא שדה חובה</div>
             <div *ngIf="labs.errors?.['min']">חייב להיות לפחות חדר מעבדה אחד</div>
         </div>
         <div *ngFor="let examiner of examiners; let i = index">
             <label>שם הבוחן ({{examiner}}):
-                <input type="text" 
-                       [(ngModel)]="formData.examinersNames[i]" 
-                       [name]="'examiner' + i"
-                       required
-                       pattern="^[\u0590-\u05FF\s]+$"
-                       #examinerName="ngModel" />
+                <input type="text" [(ngModel)]="formData.Examiners[i]" [name]="'examiner' + i" required
+                    pattern="^[\u0590-\u05FF\s]+$" #examinerName="ngModel" />
                 <div *ngIf="examinerName.invalid && (examinerName.dirty || examinerName.touched)" class="error-message">
                     <div *ngIf="examinerName.errors?.['required']">שם הבוחן הוא שדה חובה</div>
                     <div *ngIf="examinerName.errors?.['pattern']">יש להזין שם בעברית בלבד</div>
@@ -116,15 +82,16 @@
         </div>
     </div>
 
-    <button type="submit" [disabled]="!registrationForm.form.valid" mat-button>
+    <div *ngIf="registrationForm.form.dirty && registrationForm.form.touched && isExceedingMaxExaminees()"
+        class="error-message">
+        סך כל התלמידים חורג מהמותר (מקסימום {{ (formData.LabsCnt ?? 0) * 20 }} תלמידים).
+    </div>
+
+    <button type="submit" [disabled]="!registrationForm.form.valid  || isExceedingMaxExaminees()" mat-button>
         <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-            <path fill="none" 
-                  stroke="currentColor" 
-                  stroke-width="3" 
-                  stroke-linecap="round" 
-                  stroke-linejoin="round"
-                  d="M20 6L9 17L4 12" />
+            <path fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
+                d="M20 6L9 17L4 12" />
         </svg>
-        עידכון רישום לבגרות 
+        עידכון רישום לבגרות
     </button>
 </form>

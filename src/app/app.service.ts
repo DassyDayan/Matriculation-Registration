@@ -27,7 +27,7 @@ export interface RegistrationData {
 
 export class AppService {
 
-  private apiUrl = environment.apiUrl;
+  private apiUrl =`${environment.apiUrl}/api`;
 
   private httpOptions = {
     headers: new HttpHeaders({

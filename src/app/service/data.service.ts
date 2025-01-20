@@ -9,7 +9,7 @@ import { environment } from '../environment.prod';
 
 export class DataService {
 
-  private apiUrl = `${environment.apiUrl}/ConnectionTest/test`;
+  private apiUrl = `${environment.apiUrl}/api/ConnectionTest/test`;
 
   private httpOptions = {
     headers: new HttpHeaders({
@@ -21,10 +21,10 @@ export class DataService {
 
   getData(): Observable<any> {
     return this.http.get(this.apiUrl, this.httpOptions).pipe(
-      // catchError(error => {
-      //   console.error('Error occurred:', error);
-      //   return throwError(() => new Error('Something went wrong! Please try again later.'));
-      // })
+      catchError(error => {
+        console.error('Error occurred:', error);
+        return throwError(() => new Error('Something went wrong! Please try again later.'));
+      })
     );
   }
 }

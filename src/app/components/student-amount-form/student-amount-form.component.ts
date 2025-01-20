@@ -1,23 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { PopupComponent } from "../popup/popup.component"
 import { MatDialog } from '@angular/material/dialog';
-
-export interface IFormDetails {
-  examineesAmount: {
-    morning: number | undefined;
-    noon: number | undefined;
-  };
-  coordinateDetails: {
-    name: string | undefined;
-    phone: string | undefined;
-    mail: string | undefined;
-  };
-  materialReceivingArea: string | undefined;
-  labsAmount: number | undefined;
-  examinersNames: (string | undefined)[];
-}
+import { FormDataService } from "../student-amount-form/student-amount-form.component.service";
+import { IArea, IFormDetails } from './student-amount-form.interfaces';
 
 @Component({
   selector: 'app-student-amount-form',
@@ -28,23 +15,23 @@ export interface IFormDetails {
 })
 
 export class StudentAmountFormComponent {
+
   @ViewChild('registrationForm') registrationForm!: NgForm;
 
-  @Input() areas: string[] | undefined;
+  @Input() areas: IArea[] | undefined;
 
   formData: IFormDetails = {
-    examineesAmount: {
-      morning: undefined,
-      noon: undefined
+    MorningExaminees: 10,
+    NoonExaminees: 10
+    ,
+    Coordinator: {
+      Name: "מנחם",
+      Phone: "0548467857",
+      Email: "dd@gmail.com"
     },
-    coordinateDetails: {
-      name: undefined,
-      phone: undefined,
-      mail: undefined
-    },
-    materialReceivingArea: undefined,
-    labsAmount: undefined,
-    examinersNames: []
+    Area: undefined,
+    LabsCnt: 1,
+    Examiners: ["הדסה"]
   };
 
   numLabs: number = 0;
@@ -62,52 +49,47 @@ export class StudentAmountFormComponent {
     this.examinersNames = new Array(value).fill(undefined);
   }
 
-  constructor(private dialog: MatDialog) { }
-
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['areas'] && changes['areas'].currentValue) {
-      this.handleAreasChange();
-    }
-  }
-
-  private handleAreasChange() {
-    if (this.areas && this.areas.length > 0) {
-      const messagesOnly = this.areas.map((item: any) => item.areaName);
-      this.areas = messagesOnly;
-    }
-  }
+  constructor(private dialog: MatDialog, private formDataService: FormDataService) { }
 
   onLabsChange(event: any) {
     const num = parseInt(event.target.value);
-    this.formData.labsAmount = num;
+    this.formData.LabsCnt = num;
     this.examiners = Array(num).fill(0).map((_, i) => i + 1);
-    this.formData.examinersNames = new Array(num).fill(undefined);
+    this.formData.Examiners = new Array(num).fill(undefined);
   }
 
   onSubmit() {
-    if (this.registrationForm.form.valid) {
+    if (this.registrationForm.form.valid && !this.isExceedingMaxExaminees()) {
       this.openPopup();
-      // this.formDataService.sendFormData(this.formData).subscribe(response => {
-      //   console.log('Response from server:', response);
-      // });
+      this.formDataService.sendFormData(this.formData).subscribe({
+        next: response => console.log('Response from server:', response),
+        error: err => console.error('Error occurred:', err),
+      });
     } else {
       Object.keys(this.registrationForm.controls).forEach(key => {
         const control = this.registrationForm.controls[key];
         control.markAsTouched();
       });
     }
+
+  }
+
+  isExceedingMaxExaminees(): boolean {
+    const totalExaminees = (this.formData.MorningExaminees ?? 0) + (this.formData.NoonExaminees ?? 0);
+    const maxExamineesAllowed = (this.formData.LabsCnt ?? 0) * 20;
+    return totalExaminees > maxExamineesAllowed;
   }
 
   openPopup(): void {
     const dialogRef = this.dialog.open(PopupComponent, {
       data: {
-        totalExamineeStudents: (this.formData.examineesAmount.morning ?? 0) +
-          (this.formData.examineesAmount.noon ?? 0),
-        labRoomsAmount: this.formData.labsAmount,
-        divisionArea: this.formData.materialReceivingArea
+        totalExamineeStudents: (this.formData.MorningExaminees ?? 0) +
+          (this.formData.NoonExaminees ?? 0),
+        labRoomsAmount: this.formData.LabsCnt,
+        divisionArea: this.formData.Area?.areaName
       }
     });
-    dialogRef.afterClosed().subscribe(result => {
-    });
+    dialogRef.afterClosed().subscribe(result => { });
   }
+
 }
