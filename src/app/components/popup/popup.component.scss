@@ -99,3 +99,84 @@ mat-dialog-content {
   }
 }
 
+// @import '../../../styles.scss';
+// $green: #26AAA4;
+// $black: #414141;
+// $white: #ffffff;
+// $gray: #f3f3f3;
+// $red: #ff0000;
+
+// // Dialog/Popup Styles
+// .mat-dialog-container {
+//   border-radius: 8px !important;
+//   padding: 0 !important;
+// }
+
+// .dialog-header {
+//   display: flex;
+//   justify-content: flex-end;
+//   padding: 1rem;
+
+//   .close-button {
+//     background: none;
+//     border: none;
+//     font-size: 1.2rem;
+//     cursor: pointer;
+//     color: $black;
+    
+//     &:hover {
+//       color: $red;
+//     }
+//   }
+// }
+
+// .dialog-content {
+//   padding: 0 1rem 1rem;
+
+//   h3 {
+//     color: $green;
+//     margin-bottom: 1.5rem;
+//   }
+
+//   .details-section {
+//     margin-bottom: 1rem;
+
+//     div {
+//       margin-bottom: 0.5rem;
+//     }
+//   }
+// }
+
+// .dialog-actions {
+//   display: flex;
+//   justify-content: flex-end;
+//   gap: 1rem;
+//   padding: 1rem;
+//   border-top: 1px solid $gray;
+
+//   button {
+//     display: flex;
+//     align-items: center;
+//     gap: 0.5rem;
+//     padding: 0.5rem 1rem;
+//     border-radius: 4px;
+//     border: none;
+//     cursor: pointer;
+
+//     &:first-child {
+//       background-color: $white;
+//       border: 1px solid $green;
+//       color: $green;
+//     }
+
+//     &:last-child {
+//       background-color: $green;
+//       color: $white;
+//     }
+
+//     .check-icon {
+//       width: 1rem;
+//       height: 1rem;
+//     }
+//   }
+// }

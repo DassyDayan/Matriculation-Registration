@@ -2,24 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, Observable, throwError } from 'rxjs';
 import { environment } from './environment.prod';
-
-// export interface RegistrationData {
-//   title: string;
-//   testDate: Date;
-//   registerLastDate: Date;
-//   phone: string;
-//   attentionArray: string[];
-//   areas: string[];
-// }
-
-export interface RegistrationData {
-  id?: string;
-  testDate?: Date;
-  registerLastDate?: Date;
-  phone: string;
-  areas: string[];
-  attentionMessages: string[];
-}
+import { IArea } from './components/student-amount-form/student-amount-form.interfaces';
+import { IRegistrationData } from './interfaces/IRegisterationData';
 
 @Injectable({
   providedIn: 'root'
@@ -37,9 +21,9 @@ export class AppService {
 
   constructor(private http: HttpClient) { }
 
-  getRegistrationData(): Observable<RegistrationData> {
+  getRegistrationData(): Observable<IRegistrationData> {
 
-    return this.http.get<RegistrationData>(`${this.apiUrl}/Registration/GetRegistrationDetails`,
+    return this.http.get<IRegistrationData>(`${this.apiUrl}/Registration/GetRegistrationDetails`,
       this.httpOptions).pipe(
         catchError(error => {
           console.error('Error occurred:', error);
@@ -68,7 +52,7 @@ export class AppService {
     return this.http.get<string[]>(`${this.apiUrl}/areas`);
   }
 
-  updateRegistrationData(data: Partial<RegistrationData>): Observable<RegistrationData> {
-    return this.http.patch<RegistrationData>(`${this.apiUrl}/registration-data`, data);
+  updateRegistrationData(data: Partial<IRegistrationData>): Observable<IRegistrationData> {
+    return this.http.patch<IRegistrationData>(`${this.apiUrl}/registration-data`, data);
   }
 }

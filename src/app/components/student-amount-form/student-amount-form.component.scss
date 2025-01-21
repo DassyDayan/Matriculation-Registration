@@ -1,7 +1,4 @@
-// .areas{
-//     width: 100px;
-//     height: 30px;
-// }
+
 
 :host {
     display: block;
@@ -149,3 +146,85 @@ button[type="submit"] {
       }
     }
   }
+
+// $green: #26AAA4;
+// $black: #414141;
+// $white: #ffffff;
+// $gray: #f3f3f3;
+// $red: #ff0000;
+//   // Form Component Styles
+// app-student-amount-form {
+//     display: block;
+  
+//     form {
+//       .form-section {
+//         margin-bottom: 2rem;
+        
+//         .section-title {
+//           font-weight: bold;
+//           margin-bottom: 1rem;
+//           color: $black;
+//         }
+  
+//         .input-group {
+//           display: flex;
+//           gap: 2rem;
+//           margin-bottom: 1rem;
+  
+//           label {
+//             flex: 1;
+            
+//             span {
+//               display: block;
+//               margin-bottom: 0.5rem;
+//             }
+  
+//             input, select {
+//               width: 100%;
+//               padding: 0.5rem;
+//               border: 1px solid darken($gray, 10%);
+//               border-radius: 4px;
+              
+//               &:focus {
+//                 outline: none;
+//                 border-color: $green;
+//               }
+  
+//               &.ng-invalid.ng-touched {
+//                 border-color: $red;
+//               }
+//             }
+//           }
+//         }
+  
+//         .error-message {
+//           color: $red;
+//           font-size: 0.875rem;
+//           margin-top: 0.25rem;
+//         }
+//       }
+//     }
+  
+//     button[type="submit"] {
+//       background-color: $green;
+//       color: $white;
+//       padding: 0.75rem 1.5rem;
+//       border: none;
+//       border-radius: 4px;
+//       cursor: pointer;
+//       display: flex;
+//       align-items: center;
+//       gap: 0.5rem;
+//       margin-right: auto;
+  
+//       &:disabled {
+//         background-color: darken($gray, 10%);
+//         cursor: not-allowed;
+//       }
+  
+//       .check-icon {
+//         width: 1.2rem;
+//         height: 1.2rem;
+//       }
+//     }
+//   }

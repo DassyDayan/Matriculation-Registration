@@ -4,13 +4,6 @@ import { toJewishDate, } from "jewish-date";
 import { gematriya } from '@hebcal/core';
 import moment from 'moment';
 
-export interface IProps {
-  testDate: Date | undefined;
-  registerLastDate: Date | undefined;
-  phone: string | undefined;
-  Attention: string[];
-}
-
 @Component({
   selector: 'app-title',
   imports: [CommonModule],

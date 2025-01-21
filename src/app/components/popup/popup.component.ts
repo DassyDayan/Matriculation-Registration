@@ -63,26 +63,6 @@ export class PopupComponent {
   }
 
   onConfirm(): void {
-    // const emailContent = {
-    //   subject: 'Registration Details for Matriculation Exam',
-    //   body: `
-    //     Year: ${this.registrationDetails.year.getFullYear()}
-    //     Total Students: ${this.registrationDetails.totalExamineeStudents}
-    //     Lab Rooms: ${this.registrationDetails.labRoomsAmount}
-    //     Division Area: ${this.registrationDetails.divisionArea}
-    //     Final Update Date: ${this.registrationDetails.finalDate.toLocaleDateString()}
-    //   `,
-    //   to: 'dassydayn@gmail.com' 
-    // };
-
-    // this.http.post('/api/send-email', emailContent).subscribe(
-    //   (response) => {
-    //     console.log('Email sent successfully:', response);
-    //   },
-    //   (error: Error) => {
-    //     console.error('Error sending email:', error);
-    //   }
-    // );
   }
 
 }

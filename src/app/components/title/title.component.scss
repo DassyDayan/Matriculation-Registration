@@ -7,12 +7,7 @@
     padding: 20px;
   }
   
-  h5 {
-    color: #2c3e50;
-    font-size: 24px;
-    margin-bottom: 16px;
-    text-align: center;
-  }
+ 
   
   h6 {
     color: #34495e;
@@ -43,4 +38,55 @@
     }
   }
   
-  
+// $green: #26AAA4;
+// $black: #414141;
+// $white: #ffffff;
+// $gray: #f3f3f3;
+// $red: #ff0000;
+
+//   // Title Component Styles
+// app-title {
+//   display: block;
+//   margin-bottom: 2rem;
+
+//   h5 {
+//     color: $black;
+//     font-size: 1.5rem;
+//     margin-bottom: 1rem;
+//   }
+
+  // h6 {
+  //   color: $green;
+  //   font-size: 1.2rem;
+  //   margin-bottom: 0.5rem;
+  // }
+
+  // .attention {
+  //   margin-top: 1.5rem;
+  //   padding: 1rem;
+  //   background-color: lighten($green, 45%);
+//     border-radius: 4px;
+
+//     h6 {
+//       color: $black;
+//       margin-bottom: 0.5rem;
+//     }
+
+//     ul {
+//       list-style-type: none;
+//       padding-right: 1rem;
+
+//       li {
+//         margin-bottom: 0.5rem;
+//         position: relative;
+        
+//         &:before {
+//           content: "•";
+//           color: $green;
+//           position: absolute;
+//           right: -1rem;
+//         }
+//       }
+//     }
+//   }
+// }

@@ -64,14 +64,14 @@
 
     <div>
         <span>מספר חדרי המעבדה בבית ספרך</span>
-        <input type="number" name="labs" min="1" required [(ngModel)]="formData.LabsCnt"
-            (change)="onLabsChange($event)" #labs="ngModel" />
+        <input type="number" name="labs" min="1" required [(ngModel)]="formData.LabsCnt" (change)="onLabsChange($event)"
+            #labs="ngModel" />
         <div *ngIf="labs.invalid && (labs.dirty || labs.touched)" class="error-message">
             <div *ngIf="labs.errors?.['required']">מספר חדרי מעבדה הוא שדה חובה</div>
             <div *ngIf="labs.errors?.['min']">חייב להיות לפחות חדר מעבדה אחד</div>
         </div>
         <div *ngFor="let examiner of examiners; let i = index">
-            <label>שם הבוחן ({{examiner}}):
+            <label>שם מורה מלווה ({{examiner}}):
                 <input type="text" [(ngModel)]="formData.Examiners[i]" [name]="'examiner' + i" required
                     pattern="^[\u0590-\u05FF\s]+$" #examinerName="ngModel" />
                 <div *ngIf="examinerName.invalid && (examinerName.dirty || examinerName.touched)" class="error-message">

@@ -2,9 +2,10 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterOutlet } from '@angular/router';
-import { AppService, RegistrationData } from './app.service';
+import { AppService } from './app.service';
 import { StudentAmountFormComponent } from './components/student-amount-form/student-amount-form.component';
 import { TitleComponent } from './components/title/title.component';
+import { IRegistrationData } from './interfaces/IRegisterationData';
 
 @Component({
   selector: 'app-root',
@@ -25,7 +26,7 @@ export class AppComponent implements OnInit {
 
   title = 'Matriculation-Registration';
 
-  data: RegistrationData = {
+  data: IRegistrationData = {
     id: '',
     testDate: undefined,
     registerLastDate: undefined,
