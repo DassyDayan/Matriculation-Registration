@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, Observable, throwError } from 'rxjs';
 import { environment } from './environment.prod';
 import { IArea } from './components/student-amount-form/student-amount-form.interfaces';
-import { IRegistrationData } from './interfaces/IRegisterationData';
+import { IRegistrationData } from './components/reactive-form/interfaces/IRegisterationData';
 
 @Injectable({
   providedIn: 'root'

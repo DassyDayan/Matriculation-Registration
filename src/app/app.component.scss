@@ -1,35 +1,11 @@
 main {
     direction: rtl;
     padding: 50px;
-    //text-align: center;
 }
 
-h4 {
+h3 {
     color: #414141;
-    font-size: 30px;
+    font-size: 22px;
     font-weight: 700;
+    margin-right: 3rem !important;
 }
-
-// Variables
-// $green: #26AAA4;
-// $black: #414141;
-// $white: #ffffff;
-// $gray: #f3f3f3;
-// $red: #ff0000;
-
-// // Global Styles
-// .main {
-//   direction: rtl;
-//   padding: 2rem;
-//   background-color: $gray;
-//   min-height: 100vh;
-
-//   .content {
-//     max-width: 1200px;
-//     margin: 0 auto;
-//     background-color: $white;
-//     border-radius: 8px;
-//     padding: 2rem;
-//     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-//   }
-// }

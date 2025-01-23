@@ -1,4 +1,4 @@
-import { IArea } from "../components/student-amount-form/student-amount-form.interfaces";
+import { IArea } from "../../student-amount-form/student-amount-form.interfaces";
 
 export interface IRegistrationData {
   id?: string;

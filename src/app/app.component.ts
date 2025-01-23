@@ -2,10 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterOutlet } from '@angular/router';
-import { AppService } from './app.service';
-import { StudentAmountFormComponent } from './components/student-amount-form/student-amount-form.component';
-import { TitleComponent } from './components/title/title.component';
-import { IRegistrationData } from './interfaces/IRegisterationData';
+import { ReactiveFormComponent } from './components/reactive-form/reactive-form.component';
+import { DataService } from './service/data.service';
 
 @Component({
   selector: 'app-root',
@@ -15,8 +13,7 @@ import { IRegistrationData } from './interfaces/IRegisterationData';
     RouterOutlet,
     ReactiveFormsModule,
     FormsModule,
-    TitleComponent,
-    StudentAmountFormComponent,
+    ReactiveFormComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -25,40 +22,20 @@ import { IRegistrationData } from './interfaces/IRegisterationData';
 export class AppComponent implements OnInit {
 
   title = 'Matriculation-Registration';
+  data: any;
 
-  data: IRegistrationData = {
-    id: '',
-    testDate: undefined,
-    registerLastDate: undefined,
-    phone: '',
-    areas: [],
-    attentionMessages: []
-  }
-
-  constructor(
-    // private dataService: DataService,
-    private appService: AppService
-  ) { }
+  constructor(private dataService: DataService) { }
 
   ngOnInit(): void {
-    // this.dataService.getData().subscribe({
-    //   next: response => {
-    //     this.data = response;
-    //     console.log("Data:\t", this.data);
-    //   },
-    //   error: err => {
-    //     // console.error('Error fetching data:', err);
-    //   }
-    // })
-
-    this.appService.getRegistrationData().subscribe({
+    this.dataService.getData().subscribe({
       next: response => {
-        this.data=response;
-        console.log(this.data);         
+        this.data = response;
+        console.log("Data:\t", this.data);
       },
       error: err => {
-        console.error('Error fetching registration data:', err);
+        console.error('Error fetching data:', err);
       }
-    });
+    })
   }
+  
 }

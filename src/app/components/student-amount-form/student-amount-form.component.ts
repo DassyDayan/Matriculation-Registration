@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, ViewChild } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
-import { PopupComponent } from "../popup/popup.component"
 import { MatDialog } from '@angular/material/dialog';
+import { PopupComponent } from "../popup/popup.component";
 import { FormDataService } from "../student-amount-form/student-amount-form.component.service";
 import { IArea, IFormDetails } from './student-amount-form.interfaces';
 
@@ -21,7 +21,7 @@ export class StudentAmountFormComponent {
   @Input() areas: IArea[] | undefined;
 
   formData: IFormDetails = {
-    MorningExaminees: 10,
+    MorningExaminees: 0,
     NoonExaminees: 10
     ,
     Coordinator: {
@@ -71,7 +71,6 @@ export class StudentAmountFormComponent {
         control.markAsTouched();
       });
     }
-
   }
 
   isExceedingMaxExaminees(): boolean {

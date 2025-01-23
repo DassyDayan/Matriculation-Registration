@@ -1,5 +1,3 @@
-
-
 :host {
     display: block;
     direction: rtl;
@@ -10,22 +8,50 @@
 }
 
 form {
-    background-color: #ffffff;
-    padding: 24px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
     >div {
         margin-bottom: 24px;
         padding: 16px;
-        border: 1px solid #e0e0e0;
-        border-radius: 4px;
 
         >div:first-child {
             font-weight: bold;
             margin-bottom: 16px;
-            color: #2c3e50;
+            color: #26AAA4;
         }
+    }
+
+    .dislayFlex {
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        justify-content: flex-start;
+        gap: 16px;
+
+        label {
+            flex: 1;
+            min-width: 0;
+            margin-left: 20px;
+
+            input {
+                width: 100%;
+                margin-right: 0;
+                height: 18px;
+            }
+        }
+
+        label:last-child {
+            margin-left: 0;
+        }
+
+    }
+
+    .greenTitle {
+        color: #26AAA4;
+        font-size: 16px;
+    }
+
+    #borderBottom {
+        border-bottom: 1px solid #26aaa4;
     }
 }
 
@@ -33,19 +59,21 @@ label {
     display: block;
     margin: 12px 0;
     font-weight: 500;
+    font-size: 14px;
 
     input {
-        display: block;
-        width: 100%;
-        padding: 8px 12px;
-        border: 1px solid #cbd5e0;
-        border-radius: 4px;
-        margin-top: 4px;
+        background-color: #f3f3f3;
+        border: none;
+        // border-radius: 8px;
+        color: #414141;
+        font-size: 14px;
+        line-height: 1.42857143;
+        outline: none;
+        padding: 6px 12px;
+        position: relative;
 
         &:focus {
-            outline: none;
-            border-color: #4299e1;
-            box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.2);
+            border-bottom: 1px #26AAA4 solid;
         }
 
         &[type="number"] {
@@ -59,20 +87,22 @@ label {
 .areas {
     width: 200px;
     padding: 8px 12px;
-    border: 1px solid #cbd5e0;
-    border-radius: 4px;
-    background-color: white;
+    border: none;
+    background-color: #f3f3f3;
     margin-right: 8px;
+    color: #414141;
+    position: relative;
+    font-size: 14px;
+    line-height: 1.42857143;
+    outline: none;
 
     &:focus {
-        outline: none;
-        border-color: #4299e1;
-        box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.2);
+        border-bottom: 1px #26AAA4 solid;
     }
 }
 
 button[type="submit"] {
-    background-color: #4299e1;
+    background-color: #26AAA4;
     color: white;
     padding: 12px 24px;
     border: none;
@@ -81,20 +111,34 @@ button[type="submit"] {
     cursor: pointer;
     transition: background-color 0.2s;
 
+    // display: flex;
+    // flex-direction: row;
+    // align-items: center;
+    // gap: 8px;
+
     &:hover {
-        background-color: #3182ce;
+        background-color: #25908b;
     }
 
     &:focus {
         outline: none;
         box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.2);
     }
+
+    &::before {
+        position: absolute;
+        right: 15px;
+        top: 7px;
+    }
 }
+
 .check-icon {
     width: 24px;
     height: 24px;
     color: #0b0d0f;
-  }
+    order: -1;
+}
+
 // Media queries for responsiveness
 @media (max-width: 768px) {
     :host {
@@ -115,116 +159,57 @@ button[type="submit"] {
         width: 100%;
         margin-right: 0;
     }
+
+    .dislayFlex {
+        flex-wrap: wrap;
+
+        label {
+            flex: 1 1 100%;
+        }
+    }
 }
 
 .error-message {
     color: #dc3545;
-    font-size: 0.875rem;
+    font-size: 12px;
     margin-top: 0.25rem;
-    
-    div {
-      margin-top: 0.125rem;
-    }
-  }
-  
-  input.ng-invalid.ng-touched,
-  select.ng-invalid.ng-touched {
-    border-color: #dc3545;
-    &:focus {
-      box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
-    }
-  }
-  
-  button[type="submit"] {
-    &:disabled {
-      background-color: #6c757d;
-      cursor: not-allowed;
-      opacity: 0.65;
-      
-      &:hover {
-        background-color: #6c757d;
-      }
-    }
-  }
 
-// $green: #26AAA4;
-// $black: #414141;
-// $white: #ffffff;
-// $gray: #f3f3f3;
-// $red: #ff0000;
-//   // Form Component Styles
-// app-student-amount-form {
-//     display: block;
-  
-//     form {
-//       .form-section {
-//         margin-bottom: 2rem;
-        
-//         .section-title {
-//           font-weight: bold;
-//           margin-bottom: 1rem;
-//           color: $black;
-//         }
-  
-//         .input-group {
-//           display: flex;
-//           gap: 2rem;
-//           margin-bottom: 1rem;
-  
-//           label {
-//             flex: 1;
-            
-//             span {
-//               display: block;
-//               margin-bottom: 0.5rem;
-//             }
-  
-//             input, select {
-//               width: 100%;
-//               padding: 0.5rem;
-//               border: 1px solid darken($gray, 10%);
-//               border-radius: 4px;
-              
-//               &:focus {
-//                 outline: none;
-//                 border-color: $green;
-//               }
-  
-//               &.ng-invalid.ng-touched {
-//                 border-color: $red;
-//               }
-//             }
-//           }
-//         }
-  
-//         .error-message {
-//           color: $red;
-//           font-size: 0.875rem;
-//           margin-top: 0.25rem;
-//         }
-//       }
-//     }
-  
-//     button[type="submit"] {
-//       background-color: $green;
-//       color: $white;
-//       padding: 0.75rem 1.5rem;
-//       border: none;
-//       border-radius: 4px;
-//       cursor: pointer;
-//       display: flex;
-//       align-items: center;
-//       gap: 0.5rem;
-//       margin-right: auto;
-  
-//       &:disabled {
-//         background-color: darken($gray, 10%);
-//         cursor: not-allowed;
-//       }
-  
-//       .check-icon {
-//         width: 1.2rem;
-//         height: 1.2rem;
-//       }
-//     }
-//   }
+    div {
+        margin-top: 0.125rem;
+    }
+}
+
+input.ng-invalid.ng-touched,
+select.ng-invalid.ng-touched {
+    border-color: #dc3545;
+
+    &:focus {
+        box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+    }
+}
+
+button[type="submit"] {
+    &:disabled {
+        background-color: #6c757d;
+        cursor: not-allowed;
+        opacity: 0.65;
+
+        &:hover {
+            background-color: #6c757d;
+        }
+    }
+}
+
+
+.submitButton {
+    display: block;
+    text-align: center;
+    margin: 0 auto;
+}
+
+
+#examinerFlex{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}

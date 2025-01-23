@@ -1,92 +1,57 @@
 :host {
-    display: block;
-    direction: rtl;
-    font-family: system-ui, -apple-system, sans-serif;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-  }
-  
- 
-  
-  h6 {
-    color: #34495e;
-    font-size: 20px;
-    margin: 16px 0;
-  }
-  
-  div {
-    margin: 12px 0;
-  }
-  
-  ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 16px 0;
-    
-    li {
-      margin: 8px 0;
-      padding: 8px;
-      background-color: #f8f9fa;
-      border-radius: 4px;
-      color: #e74c3c;
-      
-      &::before {
-        content: "⚠️";
-        margin-left: 8px;
-      }
+  display: block;
+  direction: rtl;
+  font-family: system-ui, -apple-system, sans-serif;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.greenTitle {
+  color: #26AAA4;
+  font-size: 16px;
+}
+
+.attention {
+  color: #26AAA4;
+  font-size: 16px;
+}
+
+h6 {
+  color: #34495e;
+  font-size: 20px;
+  margin: 16px 0;
+  margin-top: auto;
+}
+
+h6 + div {
+  font-size: 14px;
+}
+
+div {
+  margin: 12px 0;
+  margin-bottom: 3rem !important;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 16px 0;
+
+  li {
+    margin: 8px 0;
+    padding: 8px;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+    // color: #e74c3c;
+    font-size: 14px;
+
+    &::before {
+      content: url("http://bagrut.biu-edulab.org.il/static/media/important.0a7f5fc84ad45c98a81c.svg"); //"⚠️";
+      margin-left: 8px;
+      // position: absolute;
+      // right: 0;
+      // top: 2px;
     }
   }
-  
-// $green: #26AAA4;
-// $black: #414141;
-// $white: #ffffff;
-// $gray: #f3f3f3;
-// $red: #ff0000;
-
-//   // Title Component Styles
-// app-title {
-//   display: block;
-//   margin-bottom: 2rem;
-
-//   h5 {
-//     color: $black;
-//     font-size: 1.5rem;
-//     margin-bottom: 1rem;
-//   }
-
-  // h6 {
-  //   color: $green;
-  //   font-size: 1.2rem;
-  //   margin-bottom: 0.5rem;
-  // }
-
-  // .attention {
-  //   margin-top: 1.5rem;
-  //   padding: 1rem;
-  //   background-color: lighten($green, 45%);
-//     border-radius: 4px;
-
-//     h6 {
-//       color: $black;
-//       margin-bottom: 0.5rem;
-//     }
-
-//     ul {
-//       list-style-type: none;
-//       padding-right: 1rem;
-
-//       li {
-//         margin-bottom: 0.5rem;
-//         position: relative;
-        
-//         &:before {
-//           content: "•";
-//           color: $green;
-//           position: absolute;
-//           right: -1rem;
-//         }
-//       }
-//     }
-//   }
-// }
+}
