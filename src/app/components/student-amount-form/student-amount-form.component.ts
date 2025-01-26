@@ -21,17 +21,17 @@ export class StudentAmountFormComponent {
   @Input() areas: IArea[] | undefined;
 
   formData: IFormDetails = {
-    MorningExaminees: 0,
-    NoonExaminees: 10
+    MorningExaminees: undefined,
+    NoonExaminees: undefined
     ,
     Coordinator: {
-      Name: "מנחם",
-      Phone: "0548467857",
-      Email: "dd@gmail.com"
+      Name: "",//"מנחם",
+      Phone: "",//0548467857
+      Email: ""//dd@gmail.com
     },
     Area: undefined,
-    LabsCnt: 1,
-    Examiners: ["הדסה"]
+    LabsCnt: undefined,
+    Examiners: []//  ["הדסה"]
   };
 
   numLabs: number = 0;
@@ -53,9 +53,16 @@ export class StudentAmountFormComponent {
 
   onLabsChange(event: any) {
     const num = parseInt(event.target.value);
-    this.formData.LabsCnt = num;
-    this.examiners = Array(num).fill(0).map((_, i) => i + 1);
-    this.formData.Examiners = new Array(num).fill(undefined);
+    if (!isNaN(num) && num > 0) {
+      this.formData.LabsCnt = num;
+      this.examiners = Array(num).fill(0).map((_, i) => i + 1);
+      this.formData.Examiners = new Array(num).fill(undefined);
+    }
+    else {
+      this.formData.LabsCnt = 0;
+      this.examiners = [];
+      this.formData.Examiners = [];
+    }
   }
 
   onSubmit() {
@@ -82,8 +89,8 @@ export class StudentAmountFormComponent {
   openPopup(): void {
     const dialogRef = this.dialog.open(PopupComponent, {
       data: {
-        totalExamineeStudents: (this.formData.MorningExaminees ?? 0) +
-          (this.formData.NoonExaminees ?? 0),
+        morningExaminees: this.formData.MorningExaminees,
+        noonExaminees: this.formData.NoonExaminees,
         labRoomsAmount: this.formData.LabsCnt,
         divisionArea: this.formData.Area?.areaName
       }

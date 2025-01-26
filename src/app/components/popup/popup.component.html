@@ -1,12 +1,15 @@
 <div class="dialog-header">
   <button class="close-button" (click)="closeDialog()">X</button>
 </div>
-<div mat-dialog-content>
+<div mat-dialog-content class="wrap">
+  <span id="smallerFont">בס"ד</span>
   <h3 mat-dialog-title>אישור רישום לבגרות מעבדה {{registrationYear}}</h3>
   <div>
     <div>להלן הפרטים שהוזנו:</div>
     <br />
-    <div>סך כל התלמידים הנבחנים:{{registrationDetails.totalExamineeStudents}}</div>
+    <div>סך כל התלמידים הנבחנים בבוקר:{{registrationDetails.morningExaminees}}</div>
+    <div>סך כל התלמידים הנבחנים בצהריים:{{registrationDetails.noonExaminees}}</div>
+    <br />
     <div>מספר חדרי המעבדה:{{registrationDetails.labRoomsAmount}}</div>
     <br />
     <div>החומרים יגעו אליכם ל-{{registrationDetails.divisionArea}} </div>
@@ -17,23 +20,19 @@
 <div mat-dialog-actions class="dialog-actions">
   <button mat-button (click)="onEdit()">
     <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-      <path fill="none" 
-            stroke="currentColor" 
-            stroke-width="3" 
-            stroke-linecap="round" 
-            stroke-linejoin="round"
-            d="M20 6L9 17L4 12" />
-  </svg>
+      <path fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
+        d="M15 5L8 12L15 19" />
+    </svg>
+    <svg class="back-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
+        d="M20 17L13 12L20 7M13 17L6 12L13 7" />
+    </svg>
     תיקון
   </button>
   <button mat-button color="primary" (click)="onConfirm()">
     <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-      <path fill="none" 
-            stroke="currentColor" 
-            stroke-width="3" 
-            stroke-linecap="round" 
-            stroke-linejoin="round"
-            d="M20 6L9 17L4 12" />
-  </svg>
+      <path fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
+        d="M20 6L9 17L4 12" />
+    </svg>
     אישור</button>
 </div>

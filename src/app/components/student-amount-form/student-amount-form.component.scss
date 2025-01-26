@@ -64,7 +64,6 @@ label {
     input {
         background-color: #f3f3f3;
         border: none;
-        // border-radius: 8px;
         color: #414141;
         font-size: 14px;
         line-height: 1.42857143;
@@ -81,6 +80,20 @@ label {
             display: inline-block;
             margin-right: 8px;
         }
+    }
+}
+
+label:has(input[required]), #asterisk{
+    position: relative;
+
+    &::after {
+        content: '*';
+        color: #A30000;
+        margin-left: 4px;
+
+        position: absolute;
+        top: 0;
+        right: -10px;
     }
 }
 
@@ -111,10 +124,10 @@ button[type="submit"] {
     cursor: pointer;
     transition: background-color 0.2s;
 
-    // display: flex;
-    // flex-direction: row;
-    // align-items: center;
-    // gap: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    gap: 8px; 
 
     &:hover {
         background-color: #25908b;
@@ -135,7 +148,7 @@ button[type="submit"] {
 .check-icon {
     width: 24px;
     height: 24px;
-    color: #0b0d0f;
+    color: #ffffff;
     order: -1;
 }
 
@@ -200,15 +213,15 @@ button[type="submit"] {
     }
 }
 
-
 .submitButton {
     display: block;
     text-align: center;
     margin: 0 auto;
+    display: flex !important;
+    justify-content: center !important;
 }
 
-
-#examinerFlex{
+#examinerFlex {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;

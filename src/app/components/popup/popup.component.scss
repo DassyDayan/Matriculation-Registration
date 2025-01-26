@@ -5,26 +5,28 @@
   padding: 10px;
 
   .close-button {
-    background-color: red;
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
     margin-right: auto;
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: #414141;
+
+    &:hover {
+      color: #ff0000;
+    }
   }
 }
+
 .check-icon {
   width: 24px;
   height: 24px;
-  color: #0b0d0f;
+  color: #ffffff;
 }
+
 ::ng-deep .mat-dialog-container {
-  margin: 30px; 
-  padding: 20px; 
+  margin: 30px;
+  padding: 20px;
 }
 
 :host {
@@ -33,7 +35,7 @@
   font-family: 'Arial', sans-serif;
 }
 
-div{
+div {
   padding-inline: 10px;
 }
 
@@ -56,13 +58,21 @@ mat-dialog-content {
 .dialog-actions {
   display: flex;
   justify-content: space-between;
-  padding: 20px;
+  padding: 1rem;
   border-top: 1px solid #ddd;
 
   button {
     min-width: 100px;
     font-size: 14px;
     padding: 5px 10px;
+    border-radius: 0.9rem;
+    border: none;
+
+    display: flex;   
+    align-items: center; 
+    justify-content: center; 
+    gap: 6px; 
+
   }
 
   button[color="primary"] {
@@ -76,7 +86,7 @@ mat-dialog-content {
 
   button:not([color="primary"]) {
     background-color: #f8f9fa;
-    border: 1px solid #ddd;
+    border: 1px solid #ff0000; 
 
     &:hover {
       background-color: #e2e6ea;
@@ -99,84 +109,20 @@ mat-dialog-content {
   }
 }
 
-// @import '../../../styles.scss';
-// $green: #26AAA4;
-// $black: #414141;
-// $white: #ffffff;
-// $gray: #f3f3f3;
-// $red: #ff0000;
+h3 {
+  color: #26AAA4;
+  margin-bottom: 1.5rem;
+  margin-inline-start: 1rem;
+}
 
-// // Dialog/Popup Styles
-// .mat-dialog-container {
-//   border-radius: 8px !important;
-//   padding: 0 !important;
-// }
+span{
+  margin-inline-start: 1rem;
+}
 
-// .dialog-header {
-//   display: flex;
-//   justify-content: flex-end;
-//   padding: 1rem;
+.wrap{
+  margin:1rem;
+}
 
-//   .close-button {
-//     background: none;
-//     border: none;
-//     font-size: 1.2rem;
-//     cursor: pointer;
-//     color: $black;
-    
-//     &:hover {
-//       color: $red;
-//     }
-//   }
-// }
-
-// .dialog-content {
-//   padding: 0 1rem 1rem;
-
-//   h3 {
-//     color: $green;
-//     margin-bottom: 1.5rem;
-//   }
-
-//   .details-section {
-//     margin-bottom: 1rem;
-
-//     div {
-//       margin-bottom: 0.5rem;
-//     }
-//   }
-// }
-
-// .dialog-actions {
-//   display: flex;
-//   justify-content: flex-end;
-//   gap: 1rem;
-//   padding: 1rem;
-//   border-top: 1px solid $gray;
-
-//   button {
-//     display: flex;
-//     align-items: center;
-//     gap: 0.5rem;
-//     padding: 0.5rem 1rem;
-//     border-radius: 4px;
-//     border: none;
-//     cursor: pointer;
-
-//     &:first-child {
-//       background-color: $white;
-//       border: 1px solid $green;
-//       color: $green;
-//     }
-
-//     &:last-child {
-//       background-color: $green;
-//       color: $white;
-//     }
-
-//     .check-icon {
-//       width: 1rem;
-//       height: 1rem;
-//     }
-//   }
-// }
+#smallerFont{
+  font-size: smaller;
+}

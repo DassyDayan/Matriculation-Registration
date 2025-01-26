@@ -8,7 +8,7 @@
                     <input type="number" [(ngModel)]="formData.MorningExaminees" name="morning" required min="1"
                         #morning="ngModel" />
                     <div *ngIf="morning.invalid && (morning.dirty || morning.touched)" class="error-message">
-                        <div *ngIf="morning.errors?.['required']">שדה חובה</div>
+                        <div *ngIf="morning.errors?.['required']">זהו שדה חובה</div>
                         <div *ngIf="morning.errors?.['min']">מספר התלמידים חייב להיות גדול מ-0</div>
                     </div>
                 </label>
@@ -59,7 +59,7 @@
     </div>
 
     <div>
-        <div class="greenTitle">היכן תרצו לקבל את החומרים?</div>
+        <div class="greenTitle" id="asterisk">היכן תרצו לקבל את החומרים?</div>
         <select class="areas" [(ngModel)]="formData.Area" name="area" required #area="ngModel">
             <option class="greenTitle" value="">בחר אזור</option>
             <option *ngFor="let area of areas" [ngValue]="area">{{area.areaName}}</option>
@@ -72,25 +72,27 @@
     <div>
         <label class="greenTitle">מספר חדרי המעבדה בבית ספרך
             <input type="number" name="labs" min="1" required [(ngModel)]="formData.LabsCnt"
-                (change)="onLabsChange($event)" #labs="ngModel" />
+                (input)="onLabsChange($event)" #labs="ngModel" />
             <div *ngIf="labs.invalid && (labs.dirty || labs.touched)" class="error-message">
                 <div *ngIf="labs.errors?.['required']">זהו שדה חובה</div>
                 <div *ngIf="labs.errors?.['min']">חייב להיות לפחות חדר מעבדה אחד</div>
             </div>
         </label>
-        <div class="dislayFlex" id="examinerFlex">
-            <!-- *ngIf="formData.LabsCnt" -->
-            <!-- <div class="greenTitle">שמות מורים מלווים:</div> -->
-            <div *ngFor="let examiner of examiners; let i = index">
-                <label>שם מורה מלווה ({{examiner}}):
-                    <input type="text" [(ngModel)]="formData.Examiners[i]" [name]="'examiner' + i" required
-                        pattern="^[\u0590-\u05FF\s]+$" #examinerName="ngModel" style="width: 50%;" />
-                    <div *ngIf="examinerName.invalid && (examinerName.dirty || examinerName.touched)"
-                        class="error-message">
-                        <div *ngIf="examinerName.errors?.['required']">זהו שדה חובה</div>
-                        <div *ngIf="examinerName.errors?.['pattern']">יש להזין שם בעברית בלבד</div>
-                    </div>
-                </label>
+        <br/>
+        <div *ngIf="examiners.length > 0">
+            <label class="greenTitle">שמות מורים מלווים:</label>
+            <div class="dislayFlex" id="examinerFlex">
+                <div *ngFor="let examiner of examiners; let i = index">
+                    <label>שם מורה מלווה ({{examiner}}):
+                        <input type="text" [(ngModel)]="formData.Examiners[i]" [name]="'examiner' + i" required
+                            pattern="^[\u0590-\u05FF\s]+$" #examinerName="ngModel" style="width: 50%;" />
+                        <div *ngIf="examinerName.invalid && (examinerName.dirty || examinerName.touched)"
+                            class="error-message">
+                            <div *ngIf="examinerName.errors?.['required']">זהו שדה חובה</div>
+                            <div *ngIf="examinerName.errors?.['pattern']">יש להזין שם בעברית בלבד</div>
+                        </div>
+                    </label>
+                </div>
             </div>
         </div>
     </div>
@@ -98,10 +100,12 @@
     <div *ngIf="registrationForm.form.dirty && registrationForm.form.touched && isExceedingMaxExaminees()"
         class="error-message">
         סך כל התלמידים חורג מהמותר (מקסימום {{ (formData.LabsCnt ?? 0) * 20 }} תלמידים).
+        <br />
+        לכל חדר מעבדה מקסימום 20 תלמידים.
     </div>
 
     <div class="submitButton">
-        <button type="submit" [disabled]="!registrationForm.form.valid  || isExceedingMaxExaminees()" mat-button>
+        <button type="submit" [disabled]="!registrationForm.form.valid  && isExceedingMaxExaminees()" mat-button>
             <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <path fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
                     d="M20 6L9 17L4 12" />
