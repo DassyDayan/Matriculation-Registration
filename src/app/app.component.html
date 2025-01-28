@@ -2,8 +2,24 @@
   <div class="content">
 
     <span>בס"ד</span>
-    <h3>רישום לבגרות בר אילן</h3>
-    <app-reactive-form></app-reactive-form>
+    <ng-container *ngIf="!processCompleted; else successMessage">
+      <ng-container *ngIf="isRegistrationOpen(); else notOpenOrClosed">
+        <h3>רישום לבגרות בר אילן</h3>
+        <app-reactive-form (processCompleted)="onProcessCompleted($event)"></app-reactive-form>
+      </ng-container>
+
+      <ng-template #notOpenOrClosed>
+        <p *ngIf="isRegistrationNotOpened()">הרישום טרם נפתח</p>
+        <p *ngIf="isRegistrationClosed()">זמן הרישום עבר</p>
+      </ng-template>
+    </ng-container>
+
+    <ng-template #successMessage>
+      <h3>התהליך הסתיים בהצלחה!</h3>
+      <p>אישור רישום עם כל פרטי הרישום נשלח למייל.</p>
+      <p>העמוד ייסגר תוך מספר שניות.</p>
+    </ng-template>
+
   </div>
 </main>
 <router-outlet />

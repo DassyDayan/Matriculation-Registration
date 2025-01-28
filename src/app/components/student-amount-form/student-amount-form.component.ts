@@ -1,10 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { PopupComponent } from "../popup/popup.component";
 import { FormDataService } from "../student-amount-form/student-amount-form.component.service";
 import { IArea, IFormDetails } from './interfaces';
+import { Location } from '@angular/common';
+import { Router } from '@angular/router';
+import { delay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-student-amount-form',
@@ -17,25 +20,24 @@ import { IArea, IFormDetails } from './interfaces';
 export class StudentAmountFormComponent {
 
   @ViewChild('registrationForm') registrationForm!: NgForm;
-
   @Input() areas: IArea[] | undefined;
+  @Output() processCompleted: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   formData: IFormDetails = {
     MorningExaminees: 10,
     NoonExaminees: 10
     ,
     Coordinator: {
-      Name: "מנחם",//"מנחם",
-      Phone: "0548467857",//0548467857//
-      Email: "dd@gmail.com"//dd@gmail.com
+      Name: "מנחם",
+      Phone: "0548467857",
+      Email: "dd@gmail.com"
     },
     Area: undefined,
-    LabsCnt: undefined,
-    Examiners: ["הדסה"]//  ["הדסה"]
+    LabsCnt: 0,
+    Examiners: []
   };
 
-  pirchiMail:string="pirchiatamar@gmail.com";
-  
+  pirchiMail: string = "pirchiatamar@gmail.com";
   numLabs: number = 0;
   examiners: number[] = [];
 
@@ -51,7 +53,10 @@ export class StudentAmountFormComponent {
     this.examinersNames = new Array(value).fill(undefined);
   }
 
-  constructor(private dialog: MatDialog, private formDataService: FormDataService) { }
+  constructor(private dialog: MatDialog,
+    private router: Router,
+    private location: Location,
+    private formDataService: FormDataService) { }
 
   onLabsChange(event: any) {
     let num = parseInt(event.target.value);
@@ -90,7 +95,7 @@ export class StudentAmountFormComponent {
   openPopup(): void {
     const dialogRef = this.dialog.open(PopupComponent, {
       disableClose: true,
-      // autoFocus: false, 
+      autoFocus: false,
       data: {
         morningExaminees: this.formData.MorningExaminees,
         noonExaminees: this.formData.NoonExaminees,
@@ -99,11 +104,20 @@ export class StudentAmountFormComponent {
       }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result==='Confirm') {
+
+    dialogRef.afterClosed().pipe(
+      delay(0)
+    ).subscribe(result => {
+      if (result === 'Confirm') {
         this.formDataService.sendFormData(this.formData).subscribe({
-          next: response => console.log('Response from server:', response) ,
-          error: err => console.error('Error occurred:', err) ,
+          next: response => {
+            console.log('Response from server:', response);
+            this.processCompleted.emit(true);
+            setTimeout(() => {
+              this.location.back();
+            }, 5000);
+          },
+          error: err => console.error('Error occurred:', err),
         });
       }
     });

@@ -24,9 +24,20 @@ export class AppComponent implements OnInit {
   title = 'Matriculation-Registration';
   data: any;
 
+  registerLastDate: Date | undefined;
+  openRegisterationDate: Date | undefined;
+  dateNow: Date | undefined;
+  processCompleted: boolean = false;
+
   constructor(private dataService: DataService) { }
 
   ngOnInit(): void {
+
+    //אמור להתקבל מהסרבר
+    this.dateNow = new Date();
+    this.openRegisterationDate = new Date('2025-01-01');
+    this.registerLastDate = new Date('2025-02-08');
+
     this.dataService.getData().subscribe({
       next: response => {
         this.data = response;
@@ -37,5 +48,27 @@ export class AppComponent implements OnInit {
       }
     })
   }
+
+  isRegistrationOpen(): boolean {
+    return this.dateNow && this.openRegisterationDate && this.registerLastDate
+      ? this.dateNow >= this.openRegisterationDate && this.dateNow <= this.registerLastDate
+      : false;
+  }
+
+  isRegistrationClosed(): boolean {
+    return this.dateNow && this.registerLastDate
+      ? this.dateNow > this.registerLastDate
+      : false;
+  }
+
+  isRegistrationNotOpened(): boolean {
+    return this.dateNow && this.openRegisterationDate
+      ? this.dateNow < this.openRegisterationDate
+      : false;
+  }
+
+  onProcessCompleted(event: boolean): void {
+    this.processCompleted = event;
+  }  
   
 }

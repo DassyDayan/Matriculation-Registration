@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { TitleComponent } from '../title/title.component';
 import { StudentAmountFormComponent } from '../student-amount-form/student-amount-form.component';
 import { IRegistrationData } from './interfaces/IRegisterationData';
@@ -11,8 +11,10 @@ import { AppService } from './reactive-form.service';
   styleUrl: './reactive-form.component.scss'
 })
 
-export class ReactiveFormComponent implements OnInit{
-  
+export class ReactiveFormComponent implements OnInit {
+
+  @Output() processCompleted: EventEmitter<boolean> = new EventEmitter<boolean>();
+
   data: IRegistrationData = {
     id: '',
     testDate: undefined,
@@ -22,15 +24,13 @@ export class ReactiveFormComponent implements OnInit{
     attentionMessages: []
   }
 
-  constructor(
-    private appService: AppService
-  ) { }
+  constructor(private appService: AppService) { }
 
   ngOnInit(): void {
     this.appService.getRegistrationData().subscribe({
       next: response => {
         this.data = response;
-        console.log("reactive-form-component",this.data);
+        console.log("reactive-form-component", this.data);
       },
       error: err => {
         console.error('Error fetching registration data:', err);
@@ -38,4 +38,7 @@ export class ReactiveFormComponent implements OnInit{
     });
   }
 
+  onProcessCompleted(event: boolean): void {
+    this.processCompleted.emit(event);
+  }
 }

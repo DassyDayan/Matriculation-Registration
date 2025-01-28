@@ -3,6 +3,7 @@
         <app-title [testDate]="data.testDate" [registerLastDate]="data.registerLastDate" [phone]="data.phone"
             [Attention]="data.attentionMessages">
         </app-title>
-        <app-student-amount-form [areas]="data.areas"></app-student-amount-form>
+        <app-student-amount-form [areas]="data.areas"
+        (processCompleted)="onProcessCompleted($event)"></app-student-amount-form>
     </div>
 </div>

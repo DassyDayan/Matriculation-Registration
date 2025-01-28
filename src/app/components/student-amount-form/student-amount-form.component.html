@@ -61,7 +61,7 @@
     <div>
         <div class="greenTitle" id="asterisk">היכן תרצו לקבל את החומרים?</div>
         <select class="areas" [(ngModel)]="formData.Area" name="area" required #area="ngModel">
-            <option class="greenTitle" value="">בחר אזור</option>
+            <option class="greenTitle" [ngValue]="undefined">בחר אזור</option>
             <option *ngFor="let area of areas" [ngValue]="area">{{area.areaName}}</option>
         </select>
         <div *ngIf="area.invalid && (area.dirty || area.touched)" class="error-message">
@@ -114,4 +114,5 @@
             <span>עידכון רישום לבגרות</span>
         </button>
     </div>
+    
 </form>
