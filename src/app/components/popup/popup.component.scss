@@ -3,7 +3,8 @@
   justify-content: flex-start;
   align-items: center;
   padding: 10px;
-
+  border: none;
+  
   .close-button {
     margin-right: auto;
     background: none;
@@ -19,9 +20,14 @@
 }
 
 .check-icon {
-  width: 24px;
-  height: 24px;
+  width: 1rem;
+  height: 1rem;
   color: #ffffff;
+}
+
+.back-icon {
+  width: 1rem;
+  height: 1rem;
 }
 
 ::ng-deep .mat-dialog-container {
@@ -60,6 +66,7 @@ mat-dialog-content {
   justify-content: space-between;
   padding: 1rem;
   border-top: 1px solid #ddd;
+  height: 2.5rem;
 
   button {
     min-width: 100px;
@@ -68,25 +75,25 @@ mat-dialog-content {
     border-radius: 0.9rem;
     border: none;
 
-    display: flex;   
-    align-items: center; 
-    justify-content: center; 
-    gap: 6px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
 
   }
 
   button[color="primary"] {
-    background-color: #007bff;
+    background-color: #26AAA4;
     color: white;
 
     &:hover {
-      background-color: #0056b3;
+      background-color: #26AAA4;
     }
   }
 
   button:not([color="primary"]) {
     background-color: #f8f9fa;
-    border: 1px solid #ff0000; 
+    border: 1px solid #ff0000;
 
     &:hover {
       background-color: #e2e6ea;
@@ -115,14 +122,14 @@ h3 {
   margin-inline-start: 1rem;
 }
 
-span{
+span {
   margin-inline-start: 1rem;
 }
 
-.wrap{
-  margin:1rem;
+.wrap {
+  margin: 1rem;
 }
 
-#smallerFont{
+#smallerFont {
   font-size: smaller;
 }

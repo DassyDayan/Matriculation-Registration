@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { environment } from '../../environment.prod';
-import { catchError, Observable, pipe, throwError } from 'rxjs';
-import { IFormDetails } from './student-amount-form.interfaces';
+import { IFormDetails } from './interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -45,7 +45,7 @@ export class FormDataService {
           Id: null, // יתמלא בשרת
           Name: name
         }))
-    };
+    };    
 
     return this.http.post(this.apiUrl, mappedData, this.httpOptions);
     //   .pipe(

@@ -60,6 +60,7 @@ label {
     margin: 12px 0;
     font-weight: 500;
     font-size: 14px;
+    font-weight: bold;
 
     input {
         background-color: #f3f3f3;
@@ -186,7 +187,8 @@ button[type="submit"] {
     color: #dc3545;
     font-size: 12px;
     margin-top: 0.25rem;
-
+    font-weight: bold;
+    
     div {
         margin-top: 0.125rem;
     }

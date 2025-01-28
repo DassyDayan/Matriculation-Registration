@@ -4,7 +4,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { PopupComponent } from "../popup/popup.component";
 import { FormDataService } from "../student-amount-form/student-amount-form.component.service";
-import { IArea, IFormDetails } from './student-amount-form.interfaces';
+import { IArea, IFormDetails } from './interfaces';
 
 @Component({
   selector: 'app-student-amount-form',
@@ -21,19 +21,21 @@ export class StudentAmountFormComponent {
   @Input() areas: IArea[] | undefined;
 
   formData: IFormDetails = {
-    MorningExaminees: undefined,
-    NoonExaminees: undefined
+    MorningExaminees: 10,
+    NoonExaminees: 10
     ,
     Coordinator: {
-      Name: "",//"מנחם",
-      Phone: "",//0548467857
-      Email: ""//dd@gmail.com
+      Name: "מנחם",//"מנחם",
+      Phone: "0548467857",//0548467857//
+      Email: "dd@gmail.com"//dd@gmail.com
     },
     Area: undefined,
     LabsCnt: undefined,
-    Examiners: []//  ["הדסה"]
+    Examiners: ["הדסה"]//  ["הדסה"]
   };
 
+  pirchiMail:string="pirchiatamar@gmail.com";
+  
   numLabs: number = 0;
   examiners: number[] = [];
 
@@ -52,8 +54,11 @@ export class StudentAmountFormComponent {
   constructor(private dialog: MatDialog, private formDataService: FormDataService) { }
 
   onLabsChange(event: any) {
-    const num = parseInt(event.target.value);
-    if (!isNaN(num) && num > 0) {
+    let num = parseInt(event.target.value);
+    if (num > 10) {
+      num = 10;
+    }
+    if (!isNaN(num) && num > 0 && num <= 10) {
       this.formData.LabsCnt = num;
       this.examiners = Array(num).fill(0).map((_, i) => i + 1);
       this.formData.Examiners = new Array(num).fill(undefined);
@@ -68,10 +73,6 @@ export class StudentAmountFormComponent {
   onSubmit() {
     if (this.registrationForm.form.valid && !this.isExceedingMaxExaminees()) {
       this.openPopup();
-      this.formDataService.sendFormData(this.formData).subscribe({
-        next: response => console.log('Response from server:', response),
-        error: err => console.error('Error occurred:', err),
-      });
     } else {
       Object.keys(this.registrationForm.controls).forEach(key => {
         const control = this.registrationForm.controls[key];
@@ -88,6 +89,8 @@ export class StudentAmountFormComponent {
 
   openPopup(): void {
     const dialogRef = this.dialog.open(PopupComponent, {
+      disableClose: true,
+      autoFocus: true,
       data: {
         morningExaminees: this.formData.MorningExaminees,
         noonExaminees: this.formData.NoonExaminees,
@@ -95,7 +98,15 @@ export class StudentAmountFormComponent {
         divisionArea: this.formData.Area?.areaName
       }
     });
-    dialogRef.afterClosed().subscribe(result => { });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result==='Confirm') {
+        this.formDataService.sendFormData(this.formData).subscribe({
+          next: response => console.log('Response from server:', response) ,
+          error: err => console.error('Error occurred:', err) ,
+        });
+      }
+    });
   }
 
 }

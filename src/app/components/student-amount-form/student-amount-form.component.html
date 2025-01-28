@@ -71,14 +71,15 @@
 
     <div>
         <label class="greenTitle">מספר חדרי המעבדה בבית ספרך
-            <input type="number" name="labs" min="1" required [(ngModel)]="formData.LabsCnt"
+            <input type="number" name="labs" min="1" max="10" required [(ngModel)]="formData.LabsCnt"
                 (input)="onLabsChange($event)" #labs="ngModel" />
             <div *ngIf="labs.invalid && (labs.dirty || labs.touched)" class="error-message">
                 <div *ngIf="labs.errors?.['required']">זהו שדה חובה</div>
                 <div *ngIf="labs.errors?.['min']">חייב להיות לפחות חדר מעבדה אחד</div>
+                <div *ngIf="labs.errors?.['max'] || labs.value > 10">מספר חדרי המעבדה מוגבל ל-10</div>
             </div>
         </label>
-        <br/>
+        <br />
         <div *ngIf="examiners.length > 0">
             <label class="greenTitle">שמות מורים מלווים:</label>
             <div class="dislayFlex" id="examinerFlex">
@@ -98,10 +99,10 @@
     </div>
 
     <div *ngIf="registrationForm.form.dirty && registrationForm.form.touched && isExceedingMaxExaminees()"
-        class="error-message">
-        סך כל התלמידים חורג מהמותר (מקסימום {{ (formData.LabsCnt ?? 0) * 20 }} תלמידים).
+    class="error-message">
+        ניתן להכניס עד 20 תלמידים בכיתה, יש צורך להוסיף עוד כיתה.
         <br />
-        לכל חדר מעבדה מקסימום 20 תלמידים.
+        במידה ואין אפשרות יש לפנות לד"ר פרחי וקסמן במייל {{pirchiMail}}.
     </div>
 
     <div class="submitButton">

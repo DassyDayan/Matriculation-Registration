@@ -1,11 +1,10 @@
-import { Component, Input } from '@angular/core';
-import { PopupService } from './popup.service';
 import { CommonModule } from '@angular/common';
-import { Inject } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { toJewishDate, } from "jewish-date";
+import { Component, Inject, Input } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { gematriya } from '@hebcal/core';
-import { Iprops } from './interfaces';
+import { toJewishDate, } from "jewish-date";
+import { FormDataService } from '../student-amount-form/student-amount-form.component.service';
+import { Iprops, IRegistrationDetails } from './interfaces';
 
 @Component({
   selector: 'app-popup',
@@ -27,19 +26,20 @@ export class PopupComponent {
   };
 
   constructor(
-    private popupService: PopupService,
-    @Inject(MAT_DIALOG_DATA) public data: Iprops
+    private formDataService: FormDataService,
+    public dialogRef: MatDialogRef<PopupComponent>,
+    @Inject(MAT_DIALOG_DATA) data: Partial<IRegistrationDetails>
   ) {
-    this.props = data;
     this.registrationDetails = {
       year: new Date(new Date().getFullYear(), 0, 1),
-      morningExaminees: this.props.morningExaminees,
-      noonExaminees: this.props.noonExaminees,
-      labRoomsAmount: this.props.labRoomsAmount,
-      divisionArea: this.props.divisionArea,
-      finalDate: new Date("2025-12-31")//server get
+      morningExaminees: data.morningExaminees ?? 0,
+      noonExaminees: data.noonExaminees ?? 0,
+      labRoomsAmount: data.labRoomsAmount ?? 0,
+      divisionArea: data.divisionArea ?? '',
+      finalDate: new Date("2025-12-31")//מהסרבר
     };
   }
+
 
   @Input() props: Iprops = {
     labRoomsAmount: undefined,
@@ -50,22 +50,17 @@ export class PopupComponent {
 
   get registrationYear(): string {
     return gematriya(toJewishDate(new Date()).year);
-    // return this.registrationDetails.year.getFullYear();
-  }
-
-  openPopup() {
-    this.popupService.openPopup();
   }
 
   closeDialog() {
-    this.popupService.closePopup();
+    this.dialogRef.close();
   }
 
   onEdit(): void {
-    this.closeDialog();
+    this.dialogRef.close('edit');
   }
 
   onConfirm(): void {
+    this.dialogRef.close('Confirm');
   }
-
 }

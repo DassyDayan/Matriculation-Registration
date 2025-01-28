@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TitleComponent } from '../title/title.component';
 import { StudentAmountFormComponent } from '../student-amount-form/student-amount-form.component';
 import { IRegistrationData } from './interfaces/IRegisterationData';
-import { AppService } from '../../app.service';
+import { AppService } from './reactive-form.service';
 
 @Component({
   selector: 'app-reactive-form',
@@ -10,6 +10,7 @@ import { AppService } from '../../app.service';
   templateUrl: './reactive-form.component.html',
   styleUrl: './reactive-form.component.scss'
 })
+
 export class ReactiveFormComponent implements OnInit{
   
   data: IRegistrationData = {
