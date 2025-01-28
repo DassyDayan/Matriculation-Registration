@@ -90,7 +90,7 @@ export class StudentAmountFormComponent {
   openPopup(): void {
     const dialogRef = this.dialog.open(PopupComponent, {
       disableClose: true,
-      autoFocus: true,
+      // autoFocus: false, 
       data: {
         morningExaminees: this.formData.MorningExaminees,
         noonExaminees: this.formData.NoonExaminees,
@@ -108,5 +108,4 @@ export class StudentAmountFormComponent {
       }
     });
   }
-
 }

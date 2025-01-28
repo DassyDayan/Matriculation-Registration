@@ -1,9 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, Inject, Input } from '@angular/core';
+import { Component, ElementRef, Inject, Input, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { gematriya } from '@hebcal/core';
 import { toJewishDate, } from "jewish-date";
-import { FormDataService } from '../student-amount-form/student-amount-form.component.service';
 import { Iprops, IRegistrationDetails } from './interfaces';
 
 @Component({
@@ -26,7 +25,6 @@ export class PopupComponent {
   };
 
   constructor(
-    private formDataService: FormDataService,
     public dialogRef: MatDialogRef<PopupComponent>,
     @Inject(MAT_DIALOG_DATA) data: Partial<IRegistrationDetails>
   ) {
@@ -40,7 +38,6 @@ export class PopupComponent {
     };
   }
 
-
   @Input() props: Iprops = {
     labRoomsAmount: undefined,
     divisionArea: undefined,
@@ -50,10 +47,6 @@ export class PopupComponent {
 
   get registrationYear(): string {
     return gematriya(toJewishDate(new Date()).year);
-  }
-
-  closeDialog() {
-    this.dialogRef.close();
   }
 
   onEdit(): void {
