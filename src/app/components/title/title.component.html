@@ -2,14 +2,18 @@
 <div>
   <h6 class="greenTitle">בגרות מעבדה {{currentYear}}</h6>
   <div>הרשמה לקבלת חומרים לבחינת הבגרות-
-    {{currentYear}}<br />
-    בחינת הבגרות בתאריך {{registerLastDate | date:'dd/MM/yyyy'}} (תאריך לא סופי).
+    {{matriculationData?.nvMatriculationName}}<br />
+    בחינת הבגרות בתאריך {{matriculationData?.dtMatriculationDate| date:'dd/MM/yyyy'}} (תאריך לא סופי).
   </div>
 </div>
 
 <div>
   <h6 class="attention">לתשומת ליבכם:</h6>
   <ul>
-    <li *ngFor="let attention of Attention">{{ attention }}</li>
+    <li>ניתן להרשם לבחינת הבגרות עד התאריך {{matriculationData?.dtStudentsLastUpdateDate| date:'dd/MM/yyyy'}}</li>
+    <li>בית ספר שלא יעשה רישום עד תאריך זה לא יקבל חומרים</li>
+    <li>ההרשמה הינה חובה גם במידה ואינכם מעוניינים בקבלת החומרים</li>
+    <li>הרישום בפיקוח משרד החינוך</li>
+    <li>שימו לב, בכל בעיה ברישום לבחינה, יש לפנות בווצאפ בלבד במספר טלפון 054-600-3413</li>
   </ul>
 </div>

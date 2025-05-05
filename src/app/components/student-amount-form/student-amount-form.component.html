@@ -5,7 +5,7 @@
             <label class="greenTitle" id="borderBottom">מספר התלמידים הנבחנים </label>
             <div class="dislayFlex">
                 <label>בוקר
-                    <input type="number" [(ngModel)]="formData.MorningExaminees" name="morning" required min="1"
+                    <input type="number" [(ngModel)]="updateRequest.MorningTesters" name="morning" required min="1"
                         #morning="ngModel" />
                     <div *ngIf="morning.invalid && (morning.dirty || morning.touched)" class="error-message">
                         <div *ngIf="morning.errors?.['required']">זהו שדה חובה</div>
@@ -13,7 +13,7 @@
                     </div>
                 </label>
                 <label>צהריים
-                    <input type="number" [(ngModel)]="formData.NoonExaminees" name="evening" required min="0"
+                    <input type="number" [(ngModel)]="updateRequest.EveningTesters" name="evening" required min="0"
                         #evening="ngModel" />
                     <div *ngIf="evening.invalid && (evening.dirty || evening.touched)" class="error-message">
                         <div *ngIf="evening.errors?.['required']">זהו שדה חובה</div>
@@ -30,7 +30,7 @@
         <div class="greenTitle" id="borderBottom">הזינו את פרטי הרכז</div>
         <div class="dislayFlex">
             <label>שם הרכז
-                <input type="text" [(ngModel)]="formData.Coordinator!.Name" name="coordName" required minlength="2"
+                <input type="text" [(ngModel)]="updateRequest.CoordinatorName" name="coordName" required minlength="2"
                     pattern="^[\u0590-\u05FF\s]+$" #coordName="ngModel" />
                 <div *ngIf="coordName.invalid && (coordName.dirty || coordName.touched)" class="error-message">
                     <div *ngIf="coordName.errors?.['required']">זהו שדה חובה</div>
@@ -39,7 +39,7 @@
                 </div>
             </label>
             <label>טלפון רכז
-                <input type="text" [(ngModel)]="formData.Coordinator!.Phone" name="coordPhone" required
+                <input type="text" [(ngModel)]="updateRequest.CoordinatorPhone" name="coordPhone" required
                     pattern="^0[0-9]{8,9}$" #coordPhone="ngModel" />
                 <div *ngIf="coordPhone.invalid && (coordPhone.dirty || coordPhone.touched)" class="error-message">
                     <div *ngIf="coordPhone.errors?.['required']">זהו שדה חובה</div>
@@ -48,7 +48,7 @@
                 </div>
             </label>
             <label>מייל רכז
-                <input type="email" [(ngModel)]="formData.Coordinator!.Email" name="coordMail" required email
+                <input type="email" [(ngModel)]="updateRequest.CoordinatorEmail" name="coordMail" required email
                     #coordMail="ngModel" />
                 <div *ngIf="coordMail.invalid && (coordMail.dirty || coordMail.touched)" class="error-message">
                     <div *ngIf="coordMail.errors?.['required']">זהו שדה חובה</div>
@@ -60,10 +60,13 @@
 
     <div>
         <div class="greenTitle" id="asterisk">היכן תרצו לקבל את החומרים?</div>
-        <select class="areas" [(ngModel)]="formData.Area" name="area" required #area="ngModel">
+        <select class="areas" [(ngModel)]="updateRequest.Moderator" name="area" required #area="ngModel">
             <option class="greenTitle" [ngValue]="undefined">בחר אזור</option>
-            <option *ngFor="let area of areas" [ngValue]="area">{{area.areaName}}</option>
+            <option *ngFor="let m of moderators" [ngValue]="m">
+                {{ m.nvLastName }} {{ m.nvRegion }}
+            </option>
         </select>
+
         <div *ngIf="area.invalid && (area.dirty || area.touched)" class="error-message">
             <div *ngIf="area.errors?.['required']">יש לבחור אזור</div>
         </div>
@@ -71,7 +74,7 @@
 
     <div>
         <label class="greenTitle">מספר חדרי המעבדה בבית ספרך
-            <input type="number" name="labs" min="1" max="10" required [(ngModel)]="formData.LabsCnt"
+            <input type="number" name="labs" min="1" max="10" required [(ngModel)]="updateRequest.LaboratoryRooms"
                 (input)="onLabsChange($event)" #labs="ngModel" />
             <div *ngIf="labs.invalid && (labs.dirty || labs.touched)" class="error-message">
                 <div *ngIf="labs.errors?.['required']">זהו שדה חובה</div>
@@ -85,8 +88,8 @@
             <div class="dislayFlex" id="examinerFlex">
                 <div *ngFor="let examiner of examiners; let i = index">
                     <label>שם מורה מלווה ({{examiner}}):
-                        <input type="text" [(ngModel)]="formData.Examiners[i]" [name]="'examiner' + i" required
-                            pattern="^[\u0590-\u05FF\s]+$" #examinerName="ngModel" style="width: 50%;" />
+                        <input type="text" [(ngModel)]="updateRequest.AccompanyingTeachers[i]" [name]="'examiner' + i"
+                            required pattern="^[\u0590-\u05FF\s]+$" #examinerName="ngModel" style="width: 50%;" />
                         <div *ngIf="examinerName.invalid && (examinerName.dirty || examinerName.touched)"
                             class="error-message">
                             <div *ngIf="examinerName.errors?.['required']">זהו שדה חובה</div>
@@ -99,7 +102,7 @@
     </div>
 
     <div *ngIf="registrationForm.form.dirty && registrationForm.form.touched && isExceedingMaxExaminees()"
-    class="error-message">
+        class="error-message">
         ניתן להכניס עד 20 תלמידים בכיתה, יש צורך להוסיף עוד כיתה.
         <br />
         במידה ואין אפשרות יש לפנות לד"ר פרחי וקסמן במייל {{pirchiMail}}.
@@ -114,5 +117,5 @@
             <span>עידכון רישום לבגרות</span>
         </button>
     </div>
-    
+
 </form>

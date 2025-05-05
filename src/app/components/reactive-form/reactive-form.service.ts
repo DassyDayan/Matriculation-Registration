@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, Observable, throwError } from 'rxjs';
 import { environment } from '../../environment.prod';
-import { IRegistrationData } from './interfaces/IRegisterationData';
+import { IMatriculation } from '../title/interfaces/IProps';
+import { IModerator } from '../student-amount-form/interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ import { IRegistrationData } from './interfaces/IRegisterationData';
 
 export class AppService {
 
-  private apiUrl = `${environment.apiUrl}/api`;
+  private apiUrl = `${environment.apiUrl}`;
 
   private httpOptions = {
     headers: new HttpHeaders({
@@ -20,12 +21,21 @@ export class AppService {
 
   constructor(private http: HttpClient) { }
 
-  getRegistrationData(): Observable<IRegistrationData> {
-    return this.http.get<IRegistrationData>(`${this.apiUrl}/Registration/GetRegistrationDetails`,
-      this.httpOptions).pipe(
-        catchError(error => {
-          console.error('Error occurred:', error);
-          return throwError(() => new Error('Something went wrong! Please try again later.'));
-        }));
+  getLatestData(): Observable<IMatriculation> {
+    return this.http.get<IMatriculation>(`${this.apiUrl}/latest`, this.httpOptions).pipe(
+      catchError(error => {
+        console.error('Error occurred:', error);
+        return throwError(() => new Error('Something went wrong! Please try again later.'));
+      })
+    );
+  }
+
+  getTModeratorDTO(): Observable<IModerator[]> {
+    return this.http.get<IModerator[]>(`${this.apiUrl}/GetModerators`, this.httpOptions).pipe(
+      catchError(error => {
+        console.error('Error occurred:', error);
+        return throwError(() => new Error('Something went wrong! Please try again later.'));
+      })
+    );
   }
 }

@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 import { environment } from '../../environment.prod';
-import { IFormDetails } from './interfaces';
+import { IUpdateMatriculationDataRequest } from './interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,7 @@ import { IFormDetails } from './interfaces';
 
 export class FormDataService {
 
-  private apiUrl = `${environment.apiUrl}/AddInstitution`;
+  private apiUrl = `${environment.apiUrl}/update?username=A1F1D&password=B9DE7`;
 
   private httpOptions = {
     headers: new HttpHeaders({
@@ -20,40 +20,15 @@ export class FormDataService {
 
   constructor(private http: HttpClient) { }
 
-  sendFormData(data: IFormDetails): Observable<any> {
+  sendFormData(data: IUpdateMatriculationDataRequest): Observable<any> {
 
-    const mappedData = {
-      Id: null, // או כל ערך אחר שנדרש
-      MorningExaminees: data.MorningExaminees || 0,
-      NoonExaminees: data.NoonExaminees || 0,
-      LabsCnt: data.LabsCnt || 0,
-      AreaId: data.Area?.id,
-      Area: data.Area ? {
-        Id: data.Area.id,
-        AreaName: data.Area.areaName
-      } : null,
-      CoordinatorId: null, // יתמלא בשרת
-      Coordinator: data.Coordinator ? {
-        Id: null, // יתמלא בשרת
-        Name: data.Coordinator.Name,
-        Phone: data.Coordinator.Phone,
-        Email: data.Coordinator.Email
-      } : null,
-      Examiners: data.Examiners
-        .filter(name => name) // סינון ערכים ריקים
-        .map(name => ({
-          Id: null, // יתמלא בשרת
-          Name: name
-        }))
-    };    
-
-    return this.http.post(this.apiUrl, mappedData, this.httpOptions);
-    //   .pipe(
-    //   catchError(error => {
-    //     console.error('Error occurred:', error);
-    //     return throwError(() => new Error('Something went wrong! Please try again later.'));
-    //   })
-    // );
+    return this.http.post(this.apiUrl, data, this.httpOptions)
+      .pipe(
+        catchError(error => {
+          console.error('Error occurred:', error);
+          return throwError(() => new Error('Error Sending From Data! Please try again later.'));
+        })
+      );
   }
 
 }

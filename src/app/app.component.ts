@@ -28,6 +28,7 @@ export class AppComponent implements OnInit {
   openRegisterationDate: Date | undefined;
   dateNow: Date | undefined;
   processCompleted: boolean = false;
+  coordinatorEmail: string = '';
 
   constructor(private dataService: DataService) { }
 
@@ -36,12 +37,12 @@ export class AppComponent implements OnInit {
     //אמור להתקבל מהסרבר
     this.dateNow = new Date();
     this.openRegisterationDate = new Date('2025-01-01');
-    this.registerLastDate = new Date('2025-02-08');
+    this.registerLastDate = new Date('2025-05-08');
 
     this.dataService.getData().subscribe({
       next: response => {
         this.data = response;
-        console.log("Data:\t", this.data);
+        // console.log("Data:\t", this.data);
       },
       error: err => {
         console.error('Error fetching data:', err);
@@ -67,8 +68,11 @@ export class AppComponent implements OnInit {
       : false;
   }
 
-  onProcessCompleted(event: boolean): void {
-    this.processCompleted = event;
-  }  
-  
+  onProcessCompleted(event: { success: boolean; email: string }): void {
+    this.processCompleted = event.success;
+    this.coordinatorEmail = event.email;
+  }
+
 }
+
+// https://bagrut.biu-edulab.org.il/?nvUserName=BAAEF&nvPassword=635D9

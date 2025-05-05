@@ -1,9 +1,7 @@
 <div class="main">
     <div class="form">
-        <app-title [testDate]="data.testDate" [registerLastDate]="data.registerLastDate" [phone]="data.phone"
-            [Attention]="data.attentionMessages">
-        </app-title>
-        <app-student-amount-form [areas]="data.areas"
-        (processCompleted)="onProcessCompleted($event)"></app-student-amount-form>
+        <app-title [matriculationData]="selectedMatriculation"></app-title>
+        <app-student-amount-form [moderators]="moderatorsList" (processCompleted)="onProcessCompleted($event)">
+        </app-student-amount-form>
     </div>
 </div>

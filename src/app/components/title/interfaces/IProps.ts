@@ -1,6 +1,6 @@
-export interface IProps {
-    testDate: Date | undefined;
-    registerLastDate: Date | undefined;
-    phone: string | undefined;
-    Attention: string[];
+export interface IMatriculation {
+    iMatriculationId: number;
+    nvMatriculationName: string;
+    dtMatriculationDate: Date;
+    dtStudentsLastUpdateDate: Date;
 }
