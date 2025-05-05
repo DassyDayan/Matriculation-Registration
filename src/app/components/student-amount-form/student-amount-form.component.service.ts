@@ -10,8 +10,6 @@ import { IUpdateMatriculationDataRequest } from './interfaces';
 
 export class FormDataService {
 
-  private apiUrl = `${environment.apiUrl}/update?username=A1F1D&password=B9DE7`;
-
   private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
@@ -20,9 +18,12 @@ export class FormDataService {
 
   constructor(private http: HttpClient) { }
 
-  sendFormData(data: IUpdateMatriculationDataRequest): Observable<any> {
+  sendFormData(data: IUpdateMatriculationDataRequest, username: string,
+    password: string): Observable<any> {
 
-    return this.http.post(this.apiUrl, data, this.httpOptions)
+    const url = `${environment.apiUrl}/update?username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`;
+
+    return this.http.post(url, data, this.httpOptions)
       .pipe(
         catchError(error => {
           console.error('Error occurred:', error);

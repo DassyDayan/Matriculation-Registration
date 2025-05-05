@@ -7,6 +7,7 @@ import { Location } from '@angular/common';
 import { delay } from 'rxjs/operators';
 import { IMatriculationFormViewModel, IModerator, IUpdateMatriculationDataRequest } from './interfaces';
 import { FormDataService } from "../student-amount-form/student-amount-form.component.service";
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-student-amount-form',
@@ -38,10 +39,18 @@ export class StudentAmountFormComponent {
   numLabs: number = 0;
   examiners: number[] = [];
 
+  username: string = '';
+  password: string = '';
+
   constructor(private dialog: MatDialog,
     private formDataService: FormDataService,
-    private location: Location
+    private location: Location,
+    private route: ActivatedRoute
   ) {
+    this.route.queryParams.subscribe(params => {
+      this.username = params['username'] || 'A1F1D';
+      this.password = params['password'] || 'B9DE7';
+    });
   }
 
   onLabsChange(event: any) {
@@ -86,7 +95,9 @@ export class StudentAmountFormComponent {
         morningExaminees: this.updateRequest.MorningTesters,
         noonExaminees: this.updateRequest.EveningTesters,
         labRoomsAmount: this.updateRequest.LaboratoryRooms,
-        divisionArea: this.updateRequest.Moderator,
+        divisionArea: this.updateRequest.Moderator!.nvFirstName+" "+
+        this.updateRequest.Moderator!.nvLastName+" "+
+        this.updateRequest.Moderator!.nvRegion,
       }
     });
 
@@ -104,8 +115,8 @@ export class StudentAmountFormComponent {
           LaboratoryRooms: this.updateRequest.LaboratoryRooms,
           AccompanyingTeachers: this.updateRequest.AccompanyingTeachers
         };
-        
-        this.formDataService.sendFormData(payload).subscribe({
+
+        this.formDataService.sendFormData(payload,this.username, this.password).subscribe({
           next: (response: any) => {
             this.processCompleted.emit({
               success: true,

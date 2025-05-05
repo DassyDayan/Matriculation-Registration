@@ -4,6 +4,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterOutlet } from '@angular/router';
 import { ReactiveFormComponent } from './components/reactive-form/reactive-form.component';
 import { DataService } from './service/data.service';
+import { AppService } from './components/reactive-form/reactive-form.service';
+import { IMatriculation } from './components/title/interfaces/IProps';
 
 @Component({
   selector: 'app-root',
@@ -30,24 +32,26 @@ export class AppComponent implements OnInit {
   processCompleted: boolean = false;
   coordinatorEmail: string = '';
 
-  constructor(private dataService: DataService) { }
+  constructor(private dataService: DataService, private appService: AppService) { }
 
   ngOnInit(): void {
 
     //אמור להתקבל מהסרבר
     this.dateNow = new Date();
     this.openRegisterationDate = new Date('2025-01-01');
-    this.registerLastDate = new Date('2025-05-08');
+    this.registerLastDate= new Date('2025-08-01');
 
     this.dataService.getData().subscribe({
       next: response => {
         this.data = response;
-        // console.log("Data:\t", this.data);
+        console.log("Data:\t", this.data);
       },
       error: err => {
         console.error('Error fetching data:', err);
       }
     })
+
+    this.loadLatestMatriculationData();
   }
 
   isRegistrationOpen(): boolean {
@@ -73,6 +77,20 @@ export class AppComponent implements OnInit {
     this.coordinatorEmail = event.email;
   }
 
+  private loadLatestMatriculationData() {
+    // this.appService.getLatestData().subscribe({
+    //   next: (data: IMatriculation) => {
+    //     if (data) {
+    //       this.registerLastDate = new Date(data.dtStudentsLastUpdateDate)
+    //     } else {
+    //       console.warn('Data missing required fields:', data);
+    //     }
+    //   },
+    //   error: err => {
+    //     console.error('Error getting latest matriculation data:', err);
+    //   }
+    // });
+  }
 }
 
 // https://bagrut.biu-edulab.org.il/?nvUserName=BAAEF&nvPassword=635D9
