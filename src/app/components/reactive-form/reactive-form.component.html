@@ -1,7 +1,9 @@
 <div class="main">
     <div class="form">
         <app-title [matriculationData]="selectedMatriculation"></app-title>
-        <app-student-amount-form [moderators]="moderatorsList" (processCompleted)="onProcessCompleted($event)">
+        <app-student-amount-form [moderators]="moderatorsList" 
+        [dtStudentsLastUpdateDate]="selectedMatriculation?.dtStudentsLastUpdateDate"
+        (processCompleted)="onProcessCompleted($event)">
         </app-student-amount-form>
     </div>
 </div>

@@ -41,7 +41,6 @@ export class ReactiveFormComponent implements OnInit {
             dtMatriculationDate: new Date(data.dtMatriculationDate),
             dtStudentsLastUpdateDate: new Date(data.dtStudentsLastUpdateDate)
           };
-          // console.log('Selected Matriculation:', this.selectedMatriculation);
         } else {
           console.warn('Data missing required fields:', data);
         }
@@ -56,7 +55,6 @@ export class ReactiveFormComponent implements OnInit {
     this.appService.getTModeratorDTO().subscribe({
       next: (data: IModerator[]) => {
         this.moderatorsList = data;
-        // console.log('moderatorsList:', this.moderatorsList);
       },
       error: (err) => console.error(err)
     });

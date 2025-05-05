@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, Inject, Input, ViewChild } from '@angular/core';
+import { Component, Inject, Input } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { gematriya } from '@hebcal/core';
 import { toJewishDate, } from "jewish-date";
-import { Iprops, IRegistrationDetails } from './interfaces';
+import { IRegistrationDetails } from './interfaces';
 
 @Component({
   selector: 'app-popup',
@@ -15,14 +15,15 @@ import { Iprops, IRegistrationDetails } from './interfaces';
 
 export class PopupComponent {
 
-  registrationDetails: {
-    year: Date;
-    morningExaminees: number | undefined;
-    noonExaminees: number | undefined;
-    labRoomsAmount: number | undefined;
-    divisionArea: string | undefined;
-    finalDate: Date;
-  };
+  registrationDetails: IRegistrationDetails;
+
+  @Input() props: IRegistrationDetails = {
+    labRoomsAmount: undefined,
+    divisionArea: undefined,
+    morningExaminees: undefined,
+    noonExaminees: undefined,
+    finalDate: undefined
+  }
 
   constructor(
     public dialogRef: MatDialogRef<PopupComponent>,
@@ -34,15 +35,8 @@ export class PopupComponent {
       noonExaminees: data.noonExaminees ?? 0,
       labRoomsAmount: data.labRoomsAmount ?? 0,
       divisionArea: data.divisionArea ?? '',
-      finalDate: new Date("2025-12-31")//מהסרבר
+      finalDate: data.finalDate
     };
-  }
-
-  @Input() props: Iprops = {
-    labRoomsAmount: undefined,
-    divisionArea: undefined,
-    morningExaminees: undefined,
-    noonExaminees: undefined
   }
 
   get registrationYear(): string {

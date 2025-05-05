@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, input, Input, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { PopupComponent } from "../popup/popup.component";
@@ -23,6 +23,7 @@ export class StudentAmountFormComponent {
   @Output() processCompleted: EventEmitter<{ success: boolean; email: string }> =
     new EventEmitter<{ success: boolean; email: string }>();
   @Input() moderators: IModerator[] = [];
+  @Input() dtStudentsLastUpdateDate: Date | undefined;
 
   updateRequest: IMatriculationFormViewModel = {
     MorningTesters: 10,
@@ -95,9 +96,10 @@ export class StudentAmountFormComponent {
         morningExaminees: this.updateRequest.MorningTesters,
         noonExaminees: this.updateRequest.EveningTesters,
         labRoomsAmount: this.updateRequest.LaboratoryRooms,
-        divisionArea: this.updateRequest.Moderator!.nvFirstName+" "+
-        this.updateRequest.Moderator!.nvLastName+" "+
-        this.updateRequest.Moderator!.nvRegion,
+        divisionArea: this.updateRequest.Moderator!.nvFirstName + " " +
+          this.updateRequest.Moderator!.nvLastName + " " +
+          this.updateRequest.Moderator!.nvRegion,
+        finalDate: this.dtStudentsLastUpdateDate
       }
     });
 
@@ -116,7 +118,7 @@ export class StudentAmountFormComponent {
           AccompanyingTeachers: this.updateRequest.AccompanyingTeachers
         };
 
-        this.formDataService.sendFormData(payload,this.username, this.password).subscribe({
+        this.formDataService.sendFormData(payload, this.username, this.password).subscribe({
           next: (response: any) => {
             this.processCompleted.emit({
               success: true,
