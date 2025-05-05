@@ -21,7 +21,7 @@ export class DataService {
 
   getData(): Observable<any> {
     return this.http.get(this.apiUrl, this.httpOptions).pipe(
-      catchError(error => {
+      catchError((error: any) => {
         console.error('Error occurred:', error);
         return throwError(() => new Error('Something went wrong! Please try again later.'));
       })

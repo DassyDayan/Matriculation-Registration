@@ -101,7 +101,7 @@ label {
 label:has(input[required]),
 #asterisk {
     position: relative;
-
+    
     &::after {
         content: '*';
         color: #A30000;
@@ -242,4 +242,8 @@ button[type="submit"] {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
+}
+
+.underline{
+    border-bottom: 1px solid #26aaa4;
 }

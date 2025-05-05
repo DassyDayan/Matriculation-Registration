@@ -124,7 +124,7 @@ export class StudentAmountFormComponent {
               success: true,
               email: this.updateRequest.CoordinatorEmail
             });
-            setTimeout(() => this.location.back(), 5000);
+            setTimeout(() => this.location.back(), 500);
           },
           error: err => console.error('Error occurred:', err),
         });

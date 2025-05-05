@@ -59,7 +59,7 @@
     </div>
 
     <div>
-        <div class="greenTitle" id="asterisk">היכן תרצו לקבל את החומרים?</div>
+        <div class="greenTitle underline" id="asterisk">היכן תרצו לקבל את החומרים?</div>
         <select class="areas" [(ngModel)]="updateRequest.Moderator" name="area" required #area="ngModel">
             <option class="greenTitle" [ngValue]="undefined">בחר אזור</option>
             <option *ngFor="let m of moderators" [ngValue]="m">

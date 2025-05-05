@@ -6,6 +6,7 @@ import { ReactiveFormComponent } from './components/reactive-form/reactive-form.
 import { DataService } from './service/data.service';
 import { AppService } from './components/reactive-form/reactive-form.service';
 import { IMatriculation } from './components/title/interfaces/IProps';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -32,7 +33,10 @@ export class AppComponent implements OnInit {
   processCompleted: boolean = false;
   coordinatorEmail: string = '';
 
-  constructor(private dataService: DataService, private appService: AppService) { }
+  constructor(private dataService: DataService, private appService: AppService
+    ,    private location: Location,
+
+  ) { }
 
   ngOnInit(): void {
 
@@ -75,6 +79,7 @@ export class AppComponent implements OnInit {
   onProcessCompleted(event: { success: boolean; email: string }): void {
     this.processCompleted = event.success;
     this.coordinatorEmail = event.email;
+    setTimeout(() => this.location.back(), 500);
   }
 
   private loadLatestMatriculationData() {
