@@ -17,7 +17,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './student-amount-form.component.scss'
 })
 
-export class StudentAmountFormComponent {
+export class StudentAmountFormComponent{
 
   @ViewChild('registrationForm') registrationForm!: NgForm;
   @Output() processCompleted: EventEmitter<{ success: boolean; email: string }> =
