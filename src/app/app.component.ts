@@ -79,7 +79,7 @@ export class AppComponent implements OnInit {
   onProcessCompleted(event: { success: boolean; email: string }): void {
     this.processCompleted = event.success;
     this.coordinatorEmail = event.email;
-    setTimeout(() => this.location.back(), 500);
+    setTimeout(() => this.location.back(), 5000);
   }
 
   private loadLatestMatriculationData() {
