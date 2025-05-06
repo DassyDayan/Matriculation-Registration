@@ -67,9 +67,19 @@
             </option>
         </select>
 
+        <!-- <mat-form-field>
+            <mat-label>בחר אזור</mat-label>
+            <mat-select [panelClass]="'select-down'" required>
+                <mat-option *ngFor="let m of moderators" [value]="m">
+                    {{ m.nvLastName }} {{ m.nvRegion }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field> -->
+
         <div *ngIf="area.invalid && (area.dirty || area.touched)" class="error-message">
             <div *ngIf="area.errors?.['required']">יש לבחור אזור</div>
         </div>
+
     </div>
 
     <div>
