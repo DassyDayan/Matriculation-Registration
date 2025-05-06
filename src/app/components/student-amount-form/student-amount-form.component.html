@@ -3,7 +3,7 @@
         <div class="greenTitle">השלימו את מספר התלמידים במקום המתאים</div>
         <div>
             <label class="greenTitle" id="borderBottom">מספר התלמידים הנבחנים </label>
-            <div class="dislayFlex">
+            <div class="displayFlex">
                 <label>בוקר
                     <input type="number" [(ngModel)]="updateRequest.MorningTesters" name="morning" required min="1"
                         #morning="ngModel" />
@@ -28,7 +28,7 @@
 
     <div>
         <div class="greenTitle" id="borderBottom">הזינו את פרטי הרכז</div>
-        <div class="dislayFlex">
+        <div class="displayFlex">
             <label>שם הרכז
                 <input type="text" [(ngModel)]="updateRequest.CoordinatorName" name="coordName" required minlength="2"
                     pattern="^[\u0590-\u05FF\s]+$" #coordName="ngModel" />
@@ -61,6 +61,8 @@
     <div>
         <div class="greenTitle underline" id="asterisk">היכן תרצו לקבל את החומרים?</div>
         <select class="areas" [(ngModel)]="updateRequest.Moderator" name="area" required #area="ngModel">
+            data-dropdown-dir="down">
+
             <option class="greenTitle" [ngValue]="undefined">בחר אזור</option>
             <option *ngFor="let m of moderators" [ngValue]="m">
                 {{ m.nvLastName }} {{ m.nvRegion }}
@@ -73,19 +75,26 @@
     </div>
 
     <div>
-        <label class="greenTitle">מספר חדרי המעבדה בבית ספרך
-            <input type="number" name="labs" min="1" max="10" required [(ngModel)]="updateRequest.LaboratoryRooms"
-                (input)="onLabsChange($event)" #labs="ngModel" />
-            <div *ngIf="labs.invalid && (labs.dirty || labs.touched)" class="error-message">
-                <div *ngIf="labs.errors?.['required']">זהו שדה חובה</div>
-                <div *ngIf="labs.errors?.['min']">חייב להיות לפחות חדר מעבדה אחד</div>
-                <div *ngIf="labs.errors?.['max'] || labs.value > 10">מספר חדרי המעבדה מוגבל ל-10</div>
-            </div>
-        </label>
+        <div class="displayFlex">
+            <label>
+                <span class="greenTitle">מספר חדרי המעבדה בבית ספרך</span>
+                <input type="number" name="labs" min="1" max="10" required [(ngModel)]="updateRequest.LaboratoryRooms"
+                    (input)="onLabsChange($event)" #labs="ngModel" />
+                <div *ngIf="labs.invalid && (labs.dirty || labs.touched)" class="error-message">
+                    <div *ngIf="labs.errors?.['required']">זהו שדה חובה</div>
+                    <div *ngIf="labs.errors?.['min']">חייב להיות לפחות חדר מעבדה אחד</div>
+                    <div *ngIf="labs.errors?.['max'] || labs.value > 10">מספר חדרי המעבדה מוגבל ל-10</div>
+                </div>
+            </label>
+            <label></label>
+            <label></label>
+        </div>
+
+
         <br />
         <div *ngIf="examiners.length > 0">
             <label class="greenTitle">שמות מורים מלווים:</label>
-            <div class="dislayFlex" id="examinerFlex">
+            <div class="displayFlex" id="examinerFlex">
                 <div *ngFor="let examiner of examiners; let i = index">
                     <label>שם מורה מלווה ({{examiner}}):
                         <input type="text" [(ngModel)]="updateRequest.AccompanyingTeachers[i]" [name]="'examiner' + i"
