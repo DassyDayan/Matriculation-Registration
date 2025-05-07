@@ -34,16 +34,15 @@ export class AppComponent implements OnInit {
   coordinatorEmail: string = '';
 
   constructor(private dataService: DataService, private appService: AppService
-    ,    private location: Location,
+    , private location: Location,
 
   ) { }
 
   ngOnInit(): void {
 
-    //אמור להתקבל מהסרבר
     this.dateNow = new Date();
     this.openRegisterationDate = new Date('2025-01-01');
-    this.registerLastDate= new Date('2025-08-01');
+    this.registerLastDate = new Date('2025-08-01');
 
     this.dataService.getData().subscribe({
       next: response => {
@@ -86,7 +85,9 @@ export class AppComponent implements OnInit {
     // this.appService.getLatestData().subscribe({
     //   next: (data: IMatriculation) => {
     //     if (data) {
-    //       this.registerLastDate = new Date(data.dtStudentsLastUpdateDate)
+    //       this.registerLastDate = new Date(data.dtStudentsLastUpdateDate);
+    //       this.openRegisterationDate = new Date(this.registerLastDate);
+    //       this.openRegisterationDate.setMonth(this.openRegisterationDate.getMonth() - 2);
     //     } else {
     //       console.warn('Data missing required fields:', data);
     //     }
@@ -95,6 +96,8 @@ export class AppComponent implements OnInit {
     //     console.error('Error getting latest matriculation data:', err);
     //   }
     // });
+    console.log('change dates from server');
+    
   }
 }
 
