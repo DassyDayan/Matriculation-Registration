@@ -1,27 +1,33 @@
 <form (ngSubmit)="onSubmit()" #registrationForm="ngForm">
+
+    <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+    </div>
+
     <div>
         <div class="greenTitle">השלימו את מספר התלמידים במקום המתאים</div>
         <div>
-            <label class="greenTitle" id="borderBottom">מספר התלמידים הנבחנים </label>
+            <label class="greenTitle" id="borderBottom">מספר התלמידים הנבחנים</label>
             <div class="displayFlex">
                 <label>בוקר
-                    <input type="number" [(ngModel)]="updateRequest.MorningTesters" name="morning" required min="1"
+                    <input type="number" [(ngModel)]="updateRequest.MorningTesters" name="morning" min="0"
                         #morning="ngModel" />
                     <div *ngIf="morning.invalid && (morning.dirty || morning.touched)" class="error-message">
-                        <div *ngIf="morning.errors?.['required']">זהו שדה חובה</div>
-                        <div *ngIf="morning.errors?.['min']">מספר התלמידים חייב להיות גדול מ-0</div>
+                        <div *ngIf="morning.errors?.['min']">מספר התלמידים לא יכול להיות שלילי</div>
                     </div>
                 </label>
                 <label>צהריים
-                    <input type="number" [(ngModel)]="updateRequest.EveningTesters" name="evening" required min="0"
+                    <input type="number" [(ngModel)]="updateRequest.EveningTesters" name="evening" min="0"
                         #evening="ngModel" />
                     <div *ngIf="evening.invalid && (evening.dirty || evening.touched)" class="error-message">
-                        <div *ngIf="evening.errors?.['required']">זהו שדה חובה</div>
                         <div *ngIf="evening.errors?.['min']">מספר התלמידים לא יכול להיות שלילי</div>
                     </div>
                 </label>
                 <label></label>
                 <label></label>
+            </div>
+            <div *ngIf="isZeroTesters()" class="error-message">
+                לפחות אחד משדות מספר התלמידים חייב להיות גדול מ-0
             </div>
         </div>
     </div>
@@ -69,15 +75,6 @@
             </option>
         </select>
 
-        <!-- <mat-form-field>
-            <mat-label>בחר אזור</mat-label>
-            <mat-select [panelClass]="'select-down'" required>
-                <mat-option *ngFor="let m of moderators" [value]="m">
-                    {{ m.nvLastName }} {{ m.nvRegion }}
-                </mat-option>
-            </mat-select>
-        </mat-form-field> -->
-
         <div *ngIf="area.invalid && (area.dirty || area.touched)" class="error-message">
             <div *ngIf="area.errors?.['required']">יש לבחור אזור</div>
         </div>
@@ -99,7 +96,6 @@
             <label></label>
             <label></label>
         </div>
-
 
         <br />
         <div *ngIf="examiners.length > 0">
@@ -128,13 +124,16 @@
     </div>
 
     <div class="submitButton">
-        <button type="submit" [disabled]="!registrationForm.form.valid  && isExceedingMaxExaminees()" mat-button>
+        <button type="submit" [disabled]="!registrationForm.form.valid  && isExceedingMaxExaminees() || isSubmitting "
+            mat-button>
             <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <path fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
                     d="M20 6L9 17L4 12" />
             </svg>
-            <span>עידכון רישום לבגרות</span>
+            <span *ngIf="!isSubmitting">עידכון רישום לבגרות</span>
+            <span *ngIf="isSubmitting">שולח...</span>
         </button>
+
     </div>
 
 </form>

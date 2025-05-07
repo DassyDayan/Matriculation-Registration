@@ -4,10 +4,10 @@ import { StudentAmountFormComponent } from '../student-amount-form/student-amoun
 import { AppService } from './reactive-form.service';
 import { IMatriculation } from '../title/interfaces/IProps';
 import { IModerator } from '../student-amount-form/interfaces';
-
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-reactive-form',
-  imports: [TitleComponent, StudentAmountFormComponent],
+  imports: [CommonModule, TitleComponent, StudentAmountFormComponent],
   templateUrl: './reactive-form.component.html',
   styleUrl: './reactive-form.component.scss'
 })
@@ -16,6 +16,7 @@ export class ReactiveFormComponent implements OnInit {
 
   @Output() processCompleted: EventEmitter<{ success: boolean; email: string }> =
     new EventEmitter<{ success: boolean; email: string }>();
+  hasError: boolean = false;
 
   selectedMatriculation: IMatriculation | undefined;
   moderatorsList: IModerator[] = [];
@@ -43,10 +44,12 @@ export class ReactiveFormComponent implements OnInit {
           };
         } else {
           console.warn('Data missing required fields:', data);
+          this.hasError = true;
         }
       },
       error: err => {
         console.error('Error getting latest matriculation data:', err);
+        this.hasError = true;
       }
     });
   }
@@ -56,7 +59,10 @@ export class ReactiveFormComponent implements OnInit {
       next: (data: IModerator[]) => {
         this.moderatorsList = data;
       },
-      error: (err) => console.error(err)
+      error: (err) => {
+        console.error(err);
+        this.hasError = true;
+      }
     });
   }
 

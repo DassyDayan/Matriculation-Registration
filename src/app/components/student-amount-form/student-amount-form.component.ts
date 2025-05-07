@@ -17,7 +17,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './student-amount-form.component.scss'
 })
 
-export class StudentAmountFormComponent{
+export class StudentAmountFormComponent {
 
   @ViewChild('registrationForm') registrationForm!: NgForm;
   @Output() processCompleted: EventEmitter<{ success: boolean; email: string }> =
@@ -43,16 +43,27 @@ export class StudentAmountFormComponent{
   username: string = '';
   password: string = '';
 
+  errorMessage: string = '';
+  isSubmitting = false;
+
   constructor(private dialog: MatDialog,
     private formDataService: FormDataService,
     private location: Location,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+
   ) {
     this.route.queryParams.subscribe(params => {
       this.username = params['username'] || 'A1F1D';
       this.password = params['password'] || 'B9DE7';
     });
   }
+
+  isZeroTesters(): boolean {
+    const morning = this.updateRequest.MorningTesters ?? 0;
+    const evening = this.updateRequest.EveningTesters ?? 0;
+    return morning === 0 && evening === 0;
+  }
+
 
   onLabsChange(event: any) {
     let num = parseInt(event.target.value);
@@ -118,6 +129,8 @@ export class StudentAmountFormComponent{
           AccompanyingTeachers: this.updateRequest.AccompanyingTeachers
         };
 
+        this.isSubmitting = true;
+
         this.formDataService.sendFormData(payload, this.username, this.password).subscribe({
           next: (response: any) => {
             this.processCompleted.emit({
@@ -126,7 +139,11 @@ export class StudentAmountFormComponent{
             });
             setTimeout(() => this.location.back(), 500);
           },
-          error: err => console.error('Error occurred:', err),
+          error: err => {
+            this.isSubmitting = false;
+            console.error('Error occurred:', err);
+            this.errorMessage = 'שליחת הטופס נכשלה. נסה שוב בעוד מספר רגעים.';
+          }
         });
       }
     });

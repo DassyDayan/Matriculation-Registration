@@ -1,9 +1,13 @@
 <div class="main">
-    <div class="form">
+    <div class="form" *ngIf="!hasError">
         <app-title [matriculationData]="selectedMatriculation"></app-title>
-        <app-student-amount-form [moderators]="moderatorsList" 
-        [dtStudentsLastUpdateDate]="selectedMatriculation?.dtStudentsLastUpdateDate"
-        (processCompleted)="onProcessCompleted($event)">
+        <app-student-amount-form [moderators]="moderatorsList"
+            [dtStudentsLastUpdateDate]="selectedMatriculation?.dtStudentsLastUpdateDate"
+            (processCompleted)="onProcessCompleted($event)">
         </app-student-amount-form>
+    </div>
+    <div *ngIf="hasError" class="error-message">
+        <h2>שגיאה זמנית</h2>
+        <p>אנא נסה מאוחר יותר.</p>
     </div>
 </div>
