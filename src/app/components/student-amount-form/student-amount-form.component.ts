@@ -136,8 +136,6 @@ export class StudentAmountFormComponent {
               success: true,
               email: this.updateRequest.CoordinatorEmail
             });
-            console.log("student - amount - form");
-
             setTimeout(() =>
               this.location.back(),
               8000);

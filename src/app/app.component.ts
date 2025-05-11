@@ -81,19 +81,19 @@ export class AppComponent implements OnInit {
   }
 
   private loadLatestMatriculationData() {
-    this.appService.getLatestData().subscribe({
-      next: (data: IMatriculation) => {
-        if (data) {
-          this.registerLastDate = new Date(data.dtStudentsLastUpdateDate);
-          this.openRegisterationDate = new Date(this.registerLastDate);
-          this.openRegisterationDate.setMonth(this.openRegisterationDate.getMonth() - 2);
-        } else {
-          console.warn('Data missing required fields:', data);
-        }
-      },
-      error: err => {
-        console.error('Error getting latest matriculation data:', err);
-      }
-    });    
+    // this.appService.getLatestData().subscribe({
+    //   next: (data: IMatriculation) => {
+    //     if (data) {
+    //       this.registerLastDate = new Date(data.dtStudentsLastUpdateDate);
+    //       this.openRegisterationDate = new Date(this.registerLastDate);
+    //       this.openRegisterationDate.setMonth(this.openRegisterationDate.getMonth() - 2);
+    //     } else {
+    //       console.warn('Data missing required fields:', data);
+    //     }
+    //   },
+    //   error: err => {
+    //     console.error('Error getting latest matriculation data:', err);
+    //   }
+    // });    
   }
 }
