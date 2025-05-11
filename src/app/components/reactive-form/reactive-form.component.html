@@ -1,13 +1,24 @@
 <div class="main">
-    <div class="form" *ngIf="!hasError">
-        <app-title [matriculationData]="selectedMatriculation"></app-title>
-        <app-student-amount-form [moderators]="moderatorsList"
-            [dtStudentsLastUpdateDate]="selectedMatriculation?.dtStudentsLastUpdateDate"
-            (processCompleted)="onProcessCompleted($event)">
-        </app-student-amount-form>
-    </div>
-    <div *ngIf="hasError" class="error-message">
-        <h2>שגיאה זמנית</h2>
-        <p>אנא נסה מאוחר יותר.</p>
-    </div>
+    <ng-container *ngIf="isLoading; else contentOrError">
+        <div class="loading-message">
+            <p>טוען...</p>
+        </div>
+    </ng-container>
+
+    <ng-template #contentOrError>
+        <div *ngIf="!hasError; else errorBlock" class="form">
+            <app-title [matriculationData]="selectedMatriculation"></app-title>
+            <app-student-amount-form [moderators]="moderatorsList"
+                [dtStudentsLastUpdateDate]="selectedMatriculation?.dtStudentsLastUpdateDate"
+                (processCompleted)="onProcessCompleted($event)">
+            </app-student-amount-form>
+        </div>
+    </ng-template>
+
+    <ng-template #errorBlock>
+        <div class="error-message">
+            <h2>שגיאה זמנית</h2>
+            <p>אנא נסה מאוחר יותר.</p>
+        </div>
+    </ng-template>
 </div>

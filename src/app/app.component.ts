@@ -78,27 +78,22 @@ export class AppComponent implements OnInit {
   onProcessCompleted(event: { success: boolean; email: string }): void {
     this.processCompleted = event.success;
     this.coordinatorEmail = event.email;
-    setTimeout(() => this.location.back(), 5000);
   }
 
   private loadLatestMatriculationData() {
-    // this.appService.getLatestData().subscribe({
-    //   next: (data: IMatriculation) => {
-    //     if (data) {
-    //       this.registerLastDate = new Date(data.dtStudentsLastUpdateDate);
-    //       this.openRegisterationDate = new Date(this.registerLastDate);
-    //       this.openRegisterationDate.setMonth(this.openRegisterationDate.getMonth() - 2);
-    //     } else {
-    //       console.warn('Data missing required fields:', data);
-    //     }
-    //   },
-    //   error: err => {
-    //     console.error('Error getting latest matriculation data:', err);
-    //   }
-    // });
-    console.log('change dates from server');
-    
+    this.appService.getLatestData().subscribe({
+      next: (data: IMatriculation) => {
+        if (data) {
+          this.registerLastDate = new Date(data.dtStudentsLastUpdateDate);
+          this.openRegisterationDate = new Date(this.registerLastDate);
+          this.openRegisterationDate.setMonth(this.openRegisterationDate.getMonth() - 2);
+        } else {
+          console.warn('Data missing required fields:', data);
+        }
+      },
+      error: err => {
+        console.error('Error getting latest matriculation data:', err);
+      }
+    });    
   }
 }
-
-// https://bagrut.biu-edulab.org.il/?nvUserName=BAAEF&nvPassword=635D9

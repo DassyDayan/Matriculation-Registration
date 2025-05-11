@@ -10,7 +10,11 @@
 
       <ng-template #notOpenOrClosed>
         <p *ngIf="isRegistrationNotOpened()">הרישום טרם נפתח</p>
-        <p *ngIf="isRegistrationClosed()">זמן הרישום עבר</p>
+        <p *ngIf="isRegistrationClosed()">
+          זמן הרישום לבחינת הבגרות לשנה זו הסתיים.
+          <br />
+          ניתן ליצור קשר בוואצאפ בלבד במספר 054-600-3413
+        </p>
       </ng-template>
     </ng-container>
 
@@ -20,7 +24,6 @@
       <p>העמוד ייסגר תוך מספר שניות.</p>
     </ng-template>
 
-    
   </div>
 </main>
 <router-outlet />

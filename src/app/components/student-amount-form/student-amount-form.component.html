@@ -10,14 +10,14 @@
             <label class="greenTitle" id="borderBottom">מספר התלמידים הנבחנים</label>
             <div class="displayFlex">
                 <label>בוקר
-                    <input type="number" [(ngModel)]="updateRequest.MorningTesters" name="morning" min="0"
+                    <input placeholder="מספר נבחנים" type="number" [(ngModel)]="updateRequest.MorningTesters" name="morning" min="0"
                         #morning="ngModel" />
-                    <div *ngIf="morning.invalid && (morning.dirty || morning.touched)" class="error-message">
+                    <div *ngIf="morning.invalid && (morning.dirty || morning.touched || isSubmitting)" class="error-message">
                         <div *ngIf="morning.errors?.['min']">מספר התלמידים לא יכול להיות שלילי</div>
                     </div>
                 </label>
                 <label>צהריים
-                    <input type="number" [(ngModel)]="updateRequest.EveningTesters" name="evening" min="0"
+                    <input placeholder="מספר נבחנים" type="number" [(ngModel)]="updateRequest.EveningTesters" name="evening" min="0"
                         #evening="ngModel" />
                     <div *ngIf="evening.invalid && (evening.dirty || evening.touched)" class="error-message">
                         <div *ngIf="evening.errors?.['min']">מספר התלמידים לא יכול להיות שלילי</div>
@@ -26,7 +26,7 @@
                 <label></label>
                 <label></label>
             </div>
-            <div *ngIf="isZeroTesters()" class="error-message">
+            <div *ngIf="isZeroTesters() && (morning.touched || evening.touched)" class="error-message">
                 לפחות אחד משדות מספר התלמידים חייב להיות גדול מ-0
             </div>
         </div>
@@ -124,7 +124,8 @@
     </div>
 
     <div class="submitButton">
-        <button type="submit" [disabled]="!registrationForm.form.valid  && isExceedingMaxExaminees() || isSubmitting "
+        <button type="submit" 
+        [disabled]="!registrationForm.form.valid || isExceedingMaxExaminees() || isSubmitting"
             mat-button>
             <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <path fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
@@ -133,7 +134,6 @@
             <span *ngIf="!isSubmitting">עידכון רישום לבגרות</span>
             <span *ngIf="isSubmitting">שולח...</span>
         </button>
-
     </div>
 
 </form>

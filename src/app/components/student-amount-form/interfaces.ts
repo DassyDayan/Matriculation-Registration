@@ -7,9 +7,9 @@ export interface IModerator {
 }
 
 export interface IMatriculationFormViewModel {
-  MorningTesters: number;
-  EveningTesters: number;
-  Moderator: IModerator | null|undefined; 
+  MorningTesters: number|undefined;
+  EveningTesters: number|undefined;
+  Moderator: IModerator | null | undefined;
   CoordinatorName: string;
   CoordinatorEmail: string;
   CoordinatorPhone: string;

@@ -26,12 +26,12 @@ export class StudentAmountFormComponent {
   @Input() dtStudentsLastUpdateDate: Date | undefined;
 
   updateRequest: IMatriculationFormViewModel = {
-    MorningTesters: 10,
-    EveningTesters: 10,
+    MorningTesters: undefined,
+    EveningTesters: undefined,
     Moderator: undefined,
-    CoordinatorName: "מנחם",
-    CoordinatorEmail: "dd@gmail.com",
-    CoordinatorPhone: "0548467857",
+    CoordinatorName: "",
+    CoordinatorEmail: "",
+    CoordinatorPhone: "",
     LaboratoryRooms: 0,
     AccompanyingTeachers: []
   };
@@ -64,7 +64,6 @@ export class StudentAmountFormComponent {
     return morning === 0 && evening === 0;
   }
 
-
   onLabsChange(event: any) {
     let num = parseInt(event.target.value);
     if (num > 10) {
@@ -83,7 +82,7 @@ export class StudentAmountFormComponent {
   }
 
   onSubmit() {
-    if (this.registrationForm.form.valid && !this.isExceedingMaxExaminees()) {
+    if (this.registrationForm.form.valid && !this.isZeroTesters() && !this.isExceedingMaxExaminees()) {
       this.openPopup();
     } else {
       Object.keys(this.registrationForm.controls).forEach(key => {
@@ -119,8 +118,8 @@ export class StudentAmountFormComponent {
     ).subscribe(result => {
       if (result === 'Confirm') {
         const payload: IUpdateMatriculationDataRequest = {
-          MorningTesters: this.updateRequest.MorningTesters,
-          EveningTesters: this.updateRequest.EveningTesters,
+          MorningTesters: this.updateRequest.MorningTesters!,
+          EveningTesters: this.updateRequest.EveningTesters!,
           ModeratorId: this.updateRequest.Moderator?.iModeratorId ?? 0,
           CoordinatorName: this.updateRequest.CoordinatorName,
           CoordinatorEmail: this.updateRequest.CoordinatorEmail,
@@ -137,7 +136,11 @@ export class StudentAmountFormComponent {
               success: true,
               email: this.updateRequest.CoordinatorEmail
             });
-            setTimeout(() => this.location.back(), 500);
+            console.log("student - amount - form");
+
+            setTimeout(() =>
+              this.location.back(),
+              8000);
           },
           error: err => {
             this.isSubmitting = false;
